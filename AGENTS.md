@@ -16,6 +16,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Shopping experience takes priority over visual experimentation.
 - The codebase should remain simple, scalable, and maintainable.
 - Repository: https://github.com/Zivojinsreckovicc/nkizola-ecommerce
+- Shopify public access token f78b6b8634fc4b028b754cb074183f26
 
 ## BUSINESS CONTEXT
 
