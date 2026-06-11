@@ -12,10 +12,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  const [products, collections] = await Promise.all([
-    getProducts(),
-    getCollections(),
-  ]);
+  // Don't let a Shopify outage or misconfigured credentials break the build;
+  // the sitemap still ships with its static routes.
+  let products: Awaited<ReturnType<typeof getProducts>> = [];
+  let collections: Awaited<ReturnType<typeof getCollections>> = [];
+  try {
+    [products, collections] = await Promise.all([
+      getProducts(),
+      getCollections(),
+    ]);
+  } catch (error) {
+    console.error("sitemap: failed to load Shopify data", error);
+  }
 
   return [
     ...staticRoutes,
