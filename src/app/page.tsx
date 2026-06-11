@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FanStories } from "@/components/fan-stories";
 import { ProductGrid } from "@/components/product-card";
+import { StatCounters } from "@/components/stat-counters";
 import { getCollections, getProducts } from "@/lib/shopify";
 
 function Hero() {
@@ -128,6 +130,8 @@ export default function HomePage() {
       <Hero />
       <FeaturedProducts />
       <Collections />
+      <StatCounters />
+      <FanStories />
       <ClubStory />
     </>
   );

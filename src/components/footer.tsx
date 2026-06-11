@@ -27,6 +27,11 @@ export function Footer() {
                 Cart
               </Link>
             </li>
+            <li>
+              <Link href="/contact" className="hover:text-sky-blue">
+                Contact
+              </Link>
+            </li>
           </ul>
         </nav>
 

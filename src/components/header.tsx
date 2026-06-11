@@ -51,6 +51,12 @@ export function Header() {
             Shop
           </Link>
           <Link
+            href="/contact"
+            className="text-sm font-medium tracking-wide uppercase transition-colors hover:text-sky-blue"
+          >
+            Contact
+          </Link>
+          <Link
             href="/cart"
             aria-label="Cart"
             className="relative transition-colors hover:text-sky-blue"
