@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FanStories } from "@/components/fan-stories";
+import { HomeContact } from "@/components/home-contact";
 import { ProductGrid } from "@/components/product-card";
 import { StatCounters } from "@/components/stat-counters";
 import { getCollections, getProducts } from "@/lib/shopify";
@@ -133,6 +134,7 @@ export default function HomePage() {
       <StatCounters />
       <FanStories />
       <ClubStory />
+      <HomeContact />
     </>
   );
 }
