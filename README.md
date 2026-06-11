@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NK Izola Store
 
-## Getting Started
+Headless Shopify storefront for NK Izola Football Club, built with Next.js (App Router), TypeScript and Tailwind CSS. Deployed on Vercel.
 
-First, run the development server:
+## Getting started
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Install dependencies:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   npm install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Copy `.env.example` to `.env.local` and fill in your Shopify credentials:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   cp .env.example .env.local
+   ```
 
-## Learn More
+3. Run the development server:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open [http://localhost:3000](http://localhost:3000) to see the store.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment variables
 
-## Deploy on Vercel
+| Variable | Description |
+| --- | --- |
+| `SHOPIFY_STORE_DOMAIN` | Your Shopify store domain, e.g. `nk-izola.myshopify.com` |
+| `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Storefront API access token (Shopify admin → Settings → Apps and sales channels → Develop apps → Storefront API) |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL used for metadata and the sitemap, e.g. `https://store.nkizola.si` |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Without Shopify credentials the site still builds and renders with empty catalog states, so previews never break.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Architecture
+
+- `src/lib/shopify/` — all Shopify Storefront API access (GraphQL client, queries, types). Shopify is the source of truth; nothing is hardcoded.
+- `src/lib/cart.ts` — server-side cart reads (cart id lives in an httpOnly cookie).
+- `src/app/cart/actions.ts` — cart mutations as Server Actions (add, update quantity, remove).
+- `src/components/` — shared UI (header, footer, product grid, variant selector).
+- Checkout is handled entirely by Shopify via the cart's `checkoutUrl`.
+
+Catalog data is cached for 5 minutes (tagged `catalog`); cart data is always fetched fresh.
+
+## Deployment
+
+Deploy on [Vercel](https://vercel.com) and set the three environment variables above in the project settings. `npm run build` must pass before shipping.

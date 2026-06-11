@@ -1,26 +1,34 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-sky-blue: #5db4e6;
+  --color-sea-blue: #2891c4;
+  --color-deep-sea: #0d3a5a;
+  --color-sun-yellow: #f4c43e;
+  --color-ink: #0a1622;
+  --color-sand: #f1ead8;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-anton), sans-serif;
+  --font-sans: var(--font-inter), sans-serif;
+  --font-serif: var(--font-fraunces), serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-sand);
+  color: var(--color-ink);
+}
+
+/* Shopify product descriptions arrive as merchant-authored HTML. */
+.product-description :is(p, ul, ol) {
+  margin-block: 0.75rem;
+}
+
+.product-description :is(ul, ol) {
+  padding-inline-start: 1.25rem;
+  list-style: revert;
+}
+
+.product-description a {
+  color: var(--color-sea-blue);
+  text-decoration: underline;
 }
