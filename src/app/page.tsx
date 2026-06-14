@@ -2,14 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { FanStories } from "@/components/fan-stories";
 import { HomeContact } from "@/components/home-contact";
+import { MatchdayBanner } from "@/components/matchday-banner";
+import { OnThePitch } from "@/components/on-the-pitch";
 import { ProductGrid } from "@/components/product-card";
 import { StatCounters } from "@/components/stat-counters";
 import { getCollections, getProducts } from "@/lib/shopify";
 
 function Hero() {
   return (
-    <section className="bg-deep-sea text-sand">
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+    <section className="relative overflow-hidden bg-deep-sea text-sand">
+      <Image
+        src="/images/home-page-hero-background.webp"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 object-cover"
+      />
+      <div className="absolute inset-0 bg-deep-sea/75" />
+      <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <p className="mb-4 font-semibold tracking-widest text-sky-blue uppercase">
           Official club store
         </p>
@@ -29,7 +40,7 @@ function Hero() {
       </div>
       <div
         aria-hidden="true"
-        className="h-2 bg-linear-to-r from-sky-blue via-sea-blue to-sun-yellow"
+        className="relative h-2 bg-linear-to-r from-sky-blue via-sea-blue to-sun-yellow"
       />
     </section>
   );
@@ -81,12 +92,12 @@ async function Collections() {
         <h2 className="mb-8 font-display text-3xl tracking-wide text-deep-sea uppercase">
           Shop by collection
         </h2>
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {collections.map((collection) => (
             <li key={collection.id}>
               <Link
                 href={`/collections/${collection.handle}`}
-                className="group relative block overflow-hidden rounded-xl bg-deep-sea"
+                className="group relative block aspect-square overflow-hidden rounded-2xl bg-deep-sea shadow-sm transition-shadow hover:shadow-lg"
               >
                 {collection.image && (
                   <Image
@@ -94,10 +105,11 @@ async function Collections() {
                     alt={collection.image.altText ?? collection.title}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover opacity-50 transition-opacity group-hover:opacity-40"
+                    className="object-cover opacity-70 transition-transform duration-300 group-hover:scale-105"
                   />
                 )}
-                <span className="relative block px-6 py-10 font-display text-2xl tracking-wide text-sand uppercase">
+                <div className="absolute inset-0 bg-gradient-to-t from-deep-sea/85 via-deep-sea/10 to-transparent" />
+                <span className="absolute inset-x-0 bottom-0 px-6 py-6 font-display text-2xl tracking-wide text-sand uppercase">
                   {collection.title}
                 </span>
               </Link>
@@ -130,8 +142,10 @@ export default function HomePage() {
     <>
       <Hero />
       <FeaturedProducts />
+      <MatchdayBanner />
       <Collections />
       <StatCounters />
+      <OnThePitch />
       <FanStories />
       <ClubStory />
       <HomeContact />

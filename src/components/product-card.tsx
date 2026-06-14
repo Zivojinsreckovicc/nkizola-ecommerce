@@ -1,15 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
+import { addItem, buyNow } from "@/app/cart/actions";
+import { SubmitButton } from "@/components/submit-button";
 import type { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
 
 export function ProductCard({ product }: { product: Product }) {
+  const variant =
+    product.variants.find((v) => v.availableForSale) ?? product.variants[0];
+  const canPurchase = product.availableForSale && Boolean(variant);
+
   return (
-    <Link
-      href={`/products/${product.handle}`}
-      className="group overflow-hidden rounded-xl bg-white shadow-sm transition-shadow hover:shadow-md"
-    >
-      <div className="relative aspect-square bg-sky-blue/10">
+    <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-deep-sea/10 bg-white shadow-sm transition-shadow hover:shadow-lg">
+      <Link
+        href={`/products/${product.handle}`}
+        className="relative block aspect-square overflow-hidden bg-sky-blue/10"
+      >
         {product.featuredImage ? (
           <Image
             src={product.featuredImage.url}
@@ -24,18 +30,50 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         )}
         {!product.availableForSale && (
-          <span className="absolute top-3 left-3 rounded-full bg-ink/80 px-3 py-1 text-xs font-semibold text-sand">
+          <span className="absolute top-3 left-3 rounded-full bg-ink/80 px-3 py-1 text-xs font-semibold tracking-wide text-sand uppercase">
             Sold out
           </span>
         )}
-      </div>
-      <div className="p-4">
-        <h3 className="text-sm font-semibold text-ink">{product.title}</h3>
-        <p className="mt-1 text-sm text-deep-sea">
+      </Link>
+
+      <div className="flex flex-1 flex-col p-4">
+        <Link href={`/products/${product.handle}`}>
+          <h3 className="line-clamp-2 font-display text-base tracking-wide text-deep-sea uppercase transition-colors group-hover:text-sea-blue">
+            {product.title}
+          </h3>
+        </Link>
+        <p className="mt-1.5 text-lg font-semibold text-ink">
           {formatPrice(product.priceRange.minVariantPrice)}
         </p>
+
+        <div className="mt-4 flex flex-col gap-2 pt-1">
+          {canPurchase ? (
+            <>
+              <form action={buyNow.bind(null, variant.id)}>
+                <SubmitButton
+                  pendingText="Redirecting…"
+                  className="w-full rounded-full bg-sun-yellow px-4 py-2.5 text-xs font-semibold tracking-widest text-ink uppercase transition-colors hover:bg-sun-yellow/85"
+                >
+                  Buy now
+                </SubmitButton>
+              </form>
+              <form action={addItem.bind(null, variant.id)}>
+                <SubmitButton
+                  pendingText="Adding…"
+                  className="w-full rounded-full border border-deep-sea/30 px-4 py-2.5 text-xs font-semibold tracking-widest text-deep-sea uppercase transition-colors hover:border-deep-sea hover:bg-deep-sea hover:text-sand"
+                >
+                  Add to cart
+                </SubmitButton>
+              </form>
+            </>
+          ) : (
+            <span className="block rounded-full bg-ink/5 px-4 py-2.5 text-center text-xs font-semibold tracking-widest text-ink/40 uppercase">
+              Sold out
+            </span>
+          )}
+        </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

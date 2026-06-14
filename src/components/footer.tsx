@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
@@ -5,9 +6,12 @@ export function Footer() {
     <footer className="bg-deep-sea text-sand">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
         <div>
-          <p className="font-display text-xl tracking-wide">
-            NK <span className="text-sun-yellow">IZOLA</span>
-          </p>
+          <Image
+            src="/images/izola-logo.png"
+            alt="NK Izola"
+            width={60}
+            height={75}
+          />
           <p className="mt-3 max-w-xs text-sm text-sand/80">
             The official store of NK Izola. Worn by the squad, made for the
             supporters on the Slovenian coast.
@@ -41,6 +45,12 @@ export function Footer() {
             One town. One club. Support NK Izola — every purchase backs the
             squad.
           </p>
+          <Link
+            href="/about"
+            className="mt-2 inline-block font-medium text-sky-blue hover:text-sun-yellow"
+          >
+            About NK Izola →
+          </Link>
         </div>
       </div>
 

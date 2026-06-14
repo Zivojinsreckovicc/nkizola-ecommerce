@@ -10,29 +10,40 @@ import {
   removeCartLines,
   updateCartLines,
 } from "@/lib/shopify";
+import type { Cart } from "@/lib/shopify/types";
 import { CART_COOKIE, getCartId } from "@/lib/cart";
 
-export async function addItem(variantId: string): Promise<void> {
+async function addLineToCart(variantId: string): Promise<Cart> {
   const cartId = await getCartId();
 
   // A stored cart id can be stale (e.g. after checkout), so verify it first.
   const existingCart = cartId ? await getCart(cartId) : null;
 
   if (existingCart) {
-    await addCartLines(existingCart.id, [
+    return addCartLines(existingCart.id, [
       { merchandiseId: variantId, quantity: 1 },
     ]);
-  } else {
-    const cart = await createCart([{ merchandiseId: variantId, quantity: 1 }]);
-    (await cookies()).set(CART_COOKIE, cart.id, {
-      httpOnly: true,
-      sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 30,
-    });
   }
 
+  const cart = await createCart([{ merchandiseId: variantId, quantity: 1 }]);
+  (await cookies()).set(CART_COOKIE, cart.id, {
+    httpOnly: true,
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 30,
+  });
+  return cart;
+}
+
+export async function addItem(variantId: string): Promise<void> {
+  await addLineToCart(variantId);
   revalidatePath("/", "layout");
   redirect("/cart");
+}
+
+export async function buyNow(variantId: string): Promise<void> {
+  const cart = await addLineToCart(variantId);
+  revalidatePath("/", "layout");
+  redirect(cart.checkoutUrl);
 }
 
 export async function updateItemQuantity(

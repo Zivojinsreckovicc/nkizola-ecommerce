@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { getCurrentCart } from "@/lib/cart";
@@ -39,16 +40,34 @@ export function Header() {
   return (
     <header className="sticky top-0 z-10 bg-deep-sea text-sand shadow-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-4 sm:px-6">
-        <Link href="/" className="font-display text-2xl tracking-wide">
-          NK <span className="text-sun-yellow">IZOLA</span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/images/izola-logo.png"
+            alt="NK Izola"
+            width={60}
+            height={75}
+            priority
+          />
         </Link>
 
         <nav className="flex items-center gap-6">
+          <Link
+            href="/"
+            className="text-sm font-medium tracking-wide uppercase transition-colors hover:text-sky-blue"
+          >
+            Home
+          </Link>
           <Link
             href="/products"
             className="text-sm font-medium tracking-wide uppercase transition-colors hover:text-sky-blue"
           >
             Shop
+          </Link>
+          <Link
+            href="/about"
+            className="text-sm font-medium tracking-wide uppercase transition-colors hover:text-sky-blue"
+          >
+            About
           </Link>
           <Link
             href="/contact"

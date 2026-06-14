@@ -8,11 +8,6 @@ export type ContactFormState = {
   fieldErrors?: Partial<Record<ContactField, string>>;
 };
 
-export const initialContactState: ContactFormState = {
-  status: "idle",
-  message: "",
-};
-
 // Pragmatic check — good enough to catch typos without rejecting valid addresses.
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

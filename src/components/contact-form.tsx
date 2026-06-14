@@ -2,10 +2,15 @@
 
 import { useActionState, useId } from "react";
 import {
-  initialContactState,
   submitContactForm,
+  type ContactFormState,
 } from "@/app/contact/actions";
 import { SubmitButton } from "@/components/submit-button";
+
+const initialContactState: ContactFormState = {
+  status: "idle",
+  message: "",
+};
 
 const fieldClass =
   "w-full rounded-lg border border-deep-sea/15 bg-white px-4 py-3 text-ink placeholder:text-ink/40 focus:border-sea-blue focus:ring-2 focus:ring-sea-blue/30 focus:outline-none";
