@@ -123,7 +123,13 @@ const cartFragment = /* GraphQL */ `
 `;
 
 export const getProductsQuery = /* GraphQL */ `
-  query getProducts($first: Int!, $sortKey: ProductSortKeys, $reverse: Boolean) {
+  query getProducts(
+    $first: Int!
+    $sortKey: ProductSortKeys
+    $reverse: Boolean
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     products(first: $first, sortKey: $sortKey, reverse: $reverse) {
       edges {
         node {
@@ -136,7 +142,11 @@ export const getProductsQuery = /* GraphQL */ `
 `;
 
 export const getProductQuery = /* GraphQL */ `
-  query getProduct($handle: String!) {
+  query getProduct(
+    $handle: String!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       ...product
     }
@@ -145,7 +155,11 @@ export const getProductQuery = /* GraphQL */ `
 `;
 
 export const getCollectionsQuery = /* GraphQL */ `
-  query getCollections($first: Int!) {
+  query getCollections(
+    $first: Int!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     collections(first: $first, sortKey: TITLE) {
       edges {
         node {
@@ -165,7 +179,11 @@ export const getCollectionsQuery = /* GraphQL */ `
 `;
 
 export const getCollectionQuery = /* GraphQL */ `
-  query getCollection($handle: String!) {
+  query getCollection(
+    $handle: String!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       id
       handle
@@ -181,7 +199,12 @@ export const getCollectionQuery = /* GraphQL */ `
 `;
 
 export const getCollectionProductsQuery = /* GraphQL */ `
-  query getCollectionProducts($handle: String!, $first: Int!) {
+  query getCollectionProducts(
+    $handle: String!
+    $first: Int!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       products(first: $first, sortKey: BEST_SELLING) {
         edges {
@@ -196,7 +219,11 @@ export const getCollectionProductsQuery = /* GraphQL */ `
 `;
 
 export const getCartQuery = /* GraphQL */ `
-  query getCart($cartId: ID!) {
+  query getCart(
+    $cartId: ID!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     cart(id: $cartId) {
       ...cart
     }
@@ -205,7 +232,11 @@ export const getCartQuery = /* GraphQL */ `
 `;
 
 export const createCartMutation = /* GraphQL */ `
-  mutation createCart($lines: [CartLineInput!]) {
+  mutation createCart(
+    $lines: [CartLineInput!]
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     cartCreate(input: { lines: $lines }) {
       cart {
         ...cart
@@ -216,7 +247,12 @@ export const createCartMutation = /* GraphQL */ `
 `;
 
 export const addToCartMutation = /* GraphQL */ `
-  mutation addToCart($cartId: ID!, $lines: [CartLineInput!]!) {
+  mutation addToCart(
+    $cartId: ID!
+    $lines: [CartLineInput!]!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     cartLinesAdd(cartId: $cartId, lines: $lines) {
       cart {
         ...cart
@@ -227,7 +263,12 @@ export const addToCartMutation = /* GraphQL */ `
 `;
 
 export const updateCartMutation = /* GraphQL */ `
-  mutation updateCart($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+  mutation updateCart(
+    $cartId: ID!
+    $lines: [CartLineUpdateInput!]!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     cartLinesUpdate(cartId: $cartId, lines: $lines) {
       cart {
         ...cart
@@ -238,7 +279,12 @@ export const updateCartMutation = /* GraphQL */ `
 `;
 
 export const removeFromCartMutation = /* GraphQL */ `
-  mutation removeFromCart($cartId: ID!, $lineIds: [ID!]!) {
+  mutation removeFromCart(
+    $cartId: ID!
+    $lineIds: [ID!]!
+    $country: CountryCode!
+    $language: LanguageCode!
+  ) @inContext(country: $country, language: $language) {
     cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
       cart {
         ...cart

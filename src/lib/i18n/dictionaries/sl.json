@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "titleDefault": "Trgovina NK Izola — Uradna klubska trgovina",
+    "titleTemplate": "%s | Trgovina NK Izola",
+    "description": "Uradni izdelki NK Izola. Dresi, šali in navijaška oprema za podpornike kluba s slovenske obale."
+  },
+  "nav": {
+    "home": "Domov",
+    "shop": "Trgovina",
+    "about": "O klubu",
+    "contact": "Kontakt",
+    "cart": "Košarica",
+    "language": "Jezik"
+  },
+  "common": {
+    "addToCart": "Dodaj v košarico",
+    "buyNow": "Kupi zdaj",
+    "soldOut": "Razprodano",
+    "checkout": "Na blagajno",
+    "viewAll": "Poglej vse",
+    "shopNow": "Nakupuj zdaj",
+    "adding": "Dodajanje…",
+    "redirecting": "Preusmerjanje…",
+    "remove": "Odstrani",
+    "removing": "Odstranjevanje…",
+    "working": "Obdelava…",
+    "loading": "Nalaganje",
+    "backToProducts": "Vsi izdelki",
+    "allProducts": "Vsi izdelki"
+  },
+  "footer": {
+    "tagline": "Uradna trgovina NK Izola. Nosi jo ekipa, ustvarjena pa je za navijače s slovenske obale.",
+    "storeHeading": "Trgovina",
+    "clubHeading": "Klub",
+    "clubText": "Eno mesto. En klub. Podpri NK Izola — vsak nakup podpira ekipo.",
+    "aboutLink": "O NK Izola",
+    "copyright": "Vse pravice pridržane."
+  },
+  "home": {
+    "heroEyebrow": "Uradna klubska trgovina",
+    "heroTitle": "Nosi barve",
+    "heroTitleAccent": "Izole",
+    "heroSubtitle": "Dresi, šali in navijaška oprema naravnost s slovenske obale. Ustvarjeno za tekmo — in vsak dan po njej.",
+    "featuredTitle": "Sveže iz garderobe",
+    "featuredEmptyTitle": "Nova kolekcija prihaja",
+    "featuredEmptyBody": "Ekipa se ogreva. Novi izdelki kmalu pristanejo tukaj — preveri spet kmalu.",
+    "collectionsTitle": "Nakupuj po kolekciji",
+    "clubStoryTitle": "Več kot le dres",
+    "clubStoryBody": "Izola je ribiško mesto, ki živi za nogomet. Od mladinskih igrišč do prve ekipe — vsak prodan dres premika klub naprej. Ko nosiš modro in rumeno, s seboj nosiš celo mesto."
+  },
+  "stats": {
+    "heading": "Klub",
+    "headingAccent": "v številkah",
+    "labels": [
+      "Let na obali",
+      "Ligaških golov to sezono",
+      "Članov in navijačev",
+      "Aktivnih mladinskih ekip"
+    ]
+  },
+  "matchday": {
+    "eyebrow": "Tekma na Stadionu Drvarski",
+    "title": "Dve ekipi stopita na igrišče.",
+    "titleAccent": "Vse mesto zadrži dih.",
+    "body": "Ob vsaki domači tekmi ekipa stopi na isto igrišče z Jadranom za hrbtom in tribunami, polnimi modre in rumene. Kar nosiš na tribuni, oni nosijo na travi.",
+    "cta": "Nakupuj opremo za tekmo",
+    "imageAlt": "NK Izola in gostujoča ekipa, postrojeni na sredini igrišča pred začetkom tekme na Stadionu Drvarski"
+  },
+  "onThePitch": {
+    "eyebrow": "Z igrišča",
+    "title": "Devetdeset minut.",
+    "titleAccent": "Vsak teden znova.",
+    "body1": "Takole izgleda sobota v Izoli — prvi dotiki, odločni starti in hrup celega mesta z roba igrišča. Ekipa da vse za grb, teden za tednom.",
+    "body2": "Vsak dres, šal in trening majica, prodana v tej trgovini, pomaga, da se to nadaljuje — od prve ekipe do mladinskih vrst, ki lovijo iste sanje.",
+    "cta": "Nakupuj opremo",
+    "imageAlt": "Napadalec NK Izola se prebija mimo branilca med domačo tekmo"
+  },
+  "fanStories": {
+    "eyebrow": "Zgodbe navijačev",
+    "title": "Trenutki, ki jih nikoli ne pozabimo",
+    "body": "Vsak dres nosi spomin. Tukaj je, kaj nošenje modre in rumene pomeni ljudem na tribuni.",
+    "items": [
+      {
+        "quote": "Zadnja minuta, dež z morja, in žoga pade noter od daljne vratnice. Cela tribuna je vstala naenkrat — neznanci so se objemali kot družina. Še vedno me strese, ko grem mimo tistega gola.",
+        "moment": "Zmagoviti gol v 94. minuti proti Kopru"
+      },
+      {
+        "quote": "Dedek me je pripeljal na mojo prvo tekmo v tem šalu. Dvajset let kasneje sem ga pred tekmo ovil okoli svojega otroka. Modra in rumena zdaj tečeta v družini.",
+        "moment": "Tri generacije na tribuni"
+      },
+      {
+        "quote": "Na polčasu smo zaostajali z 2–0 in nihče ni odšel. Dva gola z glavo in en projektil kasneje mesto tisto noč ni spalo. Zato se vedno znova vračam.",
+        "moment": "Preobrat pod žarometi"
+      }
+    ]
+  },
+  "homeContact": {
+    "eyebrow": "Pozdravi nas",
+    "title": "Vprašanja?",
+    "titleAccent": "Piši nam",
+    "body": "Naročila, velikosti, zaloge ali karkoli modro-rumenega — navijač na drugi strani ti bo odgovoril."
+  },
+  "products": {
+    "title": "Trgovina",
+    "filterAll": "Vse",
+    "empty": "Trenutno ni izdelkov — prva kolekcija je na poti.",
+    "metaTitle": "Trgovina",
+    "metaDescription": "Prebrskaj vse uradne izdelke NK Izola — drese, šale, navijaško opremo in dodatke."
+  },
+  "collections": {
+    "empty": "V tej kolekciji še ni ničesar — preveri spet kmalu.",
+    "metaDescriptionTemplate": "Uradni izdelki NK Izola: {title} — nakupuj kolekcijo."
+  },
+  "cart": {
+    "title": "Tvoja košarica",
+    "emptyBody": "Tvoja košarica je prazna — garderoba pa je polno založena.",
+    "emptyCta": "Začni nakupovati",
+    "subtotal": "Vmesni seštevek",
+    "total": "Skupaj",
+    "shippingNote": "Poštnina in davki se obračunajo na blagajni.",
+    "decreaseQty": "Zmanjšaj količino",
+    "increaseQty": "Povečaj količino",
+    "metaTitle": "Košarica",
+    "metaDescription": "Preglej svoje naročilo NK Izola pred blagajno."
+  },
+  "about": {
+    "metaTitle": "O NK Izola",
+    "metaDescription": "Zgodba za NK Izola — nogometnim klubom iz Izole, Slovenija. Njegov grb, dom na Stadionu Drvarski in skupnost, ki polni tribune.",
+    "heroEyebrow": "O klubu",
+    "heroTitle": "Eno mesto. En grb.",
+    "heroTitleAccent": "Ena družina.",
+    "heroBody": "NK Izola je nogometni klub Izole — majhnega ribiškega mesta na slovenski obali, kjer se morje, sonce in sobotna popoldneva na Stadionu Drvarski zlijejo v eno.",
+    "crestEyebrow": "Grb",
+    "crestTitle": "Morje, sonce in",
+    "crestTitleAccent": "žoga v središču",
+    "crestBody1": "Grb jemlje barve naravnost z obale: modra za Jadran, na katerega gleda mesto, in rumena za sonce, ki sije nad njim na popoldne tekme. To je ista modra in rumena, ki jo boš videl na tribunah Stadiona Drvarski, na trening majicah po mestu in na vsakem dresu v tej trgovini.",
+    "crestBody2": "Nositi grb tukaj nekaj pomeni — povezuje prvo ekipo, mladinske vrste in navijače pod enim grbom, v zmagi ali porazu.",
+    "crestAlt": "Klubski grb NK Izola",
+    "communityEyebrow": "Zgrajeno od temeljev",
+    "communityTitle": "Mali mestni klub",
+    "communityTitleAccent": "z velikimi ambicijami",
+    "communityBody1": "Izola ni veliko mesto, a ob tekmi se zdi, da se zbere cel kraj. Članska ekipa se bori na istem igrišču, kjer mladinske ekipe trenirajo ves teden, in lovi iste barve in isti grb.",
+    "communityBody2": "Ta trgovina obstaja, da podpre ta trud. Vsako naročilo pomaga financirati opremo, potovanja in programe akademije, ki nenehno pripeljejo igralce z lokalnih ulic na igrišče Stadiona Drvarski.",
+    "communityCta": "Stopi v stik",
+    "communityImageAlt": "Igralec NK Izola se prebija naprej mimo branilca med domačo tekmo",
+    "stadiumEyebrow": "Naš dom",
+    "stadiumTitle": "Stadion Drvarski.",
+    "stadiumTitleAccent": "Kjer se vse dogaja.",
+    "stadiumBody": "Stisnjen ob obali je Stadion Drvarski kraj, kjer NK Izola igra nogomet že generacije. Brez korporativnih lož, brez razdalje od igrišča — le ekipa, klop in množica v modrem in rumenem, dovolj blizu, da slišiš vsak vzklik.",
+    "stadiumImageAlt": "NK Izola in gostujoča ekipa, postrojeni na sredini igrišča pred začetkom tekme na Stadionu Drvarski",
+    "closingTitle": "Pridruži se družini",
+    "closingBody": "Ne glede na to, ali si iz Izole, s širše obale ali pa preprosto ljubiš igro — na tribuni je prostor zate. Vzemi svoje barve, sledi ekipi in se vidimo na Stadionu Drvarski.",
+    "closingCta": "Nakupuj v trgovini"
+  },
+  "contact": {
+    "metaTitle": "Kontakt",
+    "metaDescription": "Stopi v stik z ekipo trgovine NK Izola — vprašanja o naročilih, velikostih, zalogi ali klubskih izdelkih s slovenske obale.",
+    "headerEyebrow": "Poslušamo te",
+    "headerTitle": "Stopi v stik",
+    "headerTitleAccent": "s klubom",
+    "headerBody": "Vprašanja o naročilu, velikostih, ponovni zalogi ali čemerkoli modro-rumenem? Piši nam — odgovoril ti bo navijač na drugi strani.",
+    "reachHeading": "Doseži trgovino",
+    "note": "Vsako sporočilo nam pomaga bolje služiti navijačem. Naročila in plačilo varno potekajo prek Shopify.",
+    "sendHeading": "Pošlji sporočilo",
+    "details": {
+      "emailLabel": "E-pošta",
+      "locationLabel": "Najdeš nas",
+      "locationValue": "Izola, slovenska obala",
+      "matchdaysLabel": "Dnevi tekem",
+      "matchdaysValue": "Stadion Drvarski — ob vsaki domači tekmi"
+    },
+    "form": {
+      "companyLabel": "Podjetje",
+      "nameLabel": "Ime",
+      "namePlaceholder": "Tvoje ime",
+      "emailLabel": "E-pošta",
+      "emailPlaceholder": "ti@primer.com",
+      "subjectLabel": "Zadeva",
+      "subjectOptional": "(neobvezno)",
+      "subjectPlaceholder": "Naročilo, velikost, zaloga…",
+      "messageLabel": "Sporočilo",
+      "messagePlaceholder": "Kako lahko pomagamo?",
+      "submit": "Pošlji sporočilo",
+      "submitting": "Pošiljanje…",
+      "successTitle": "Sporočilo poslano",
+      "successMessage": "Hvala, ker si nam pisal! Odgovorili ti bomo v nekaj dneh.",
+      "errorName": "Prosimo, povej nam svoje ime.",
+      "errorEmail": "Vnesi veljaven e-poštni naslov.",
+      "errorMessage": "Tvoje sporočilo je malce prekratko — dodaj nekaj podrobnosti.",
+      "errorGeneric": "Prosimo, popravi označena polja in poskusi znova."
+    }
+  },
+  "notFound": {
+    "title": "Izven igrišča",
+    "body": "Ta stran ne obstaja — garderoba pa obstaja.",
+    "cta": "Nazaj v trgovino"
+  }
+}

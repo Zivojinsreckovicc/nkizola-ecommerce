@@ -1,7 +1,11 @@
 import type { Money } from "@/lib/shopify/types";
+import type { Locale } from "@/lib/i18n/config";
 
-export function formatPrice({ amount, currencyCode }: Money): string {
-  return new Intl.NumberFormat("en", {
+export function formatPrice(
+  { amount, currencyCode }: Money,
+  locale: Locale = "sl"
+): string {
+  return new Intl.NumberFormat(locale, {
     style: "currency",
     currency: currencyCode,
     currencyDisplay: "narrowSymbol",

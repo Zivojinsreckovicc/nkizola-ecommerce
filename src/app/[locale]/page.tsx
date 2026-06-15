@@ -1,14 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { FanStories } from "@/components/fan-stories";
 import { HomeContact } from "@/components/home-contact";
 import { MatchdayBanner } from "@/components/matchday-banner";
 import { OnThePitch } from "@/components/on-the-pitch";
 import { ProductGrid } from "@/components/product-card";
 import { StatCounters } from "@/components/stat-counters";
+import { isLocale, localizePath, type Locale } from "@/lib/i18n/config";
+import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
 import { getCollections, getProducts } from "@/lib/shopify";
 
-function Hero() {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
     <section className="relative overflow-hidden bg-deep-sea text-sand">
       <Image
@@ -22,20 +29,20 @@ function Hero() {
       <div className="absolute inset-0 bg-deep-sea/75" />
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <p className="mb-4 font-semibold tracking-widest text-sky-blue uppercase">
-          Official club store
+          {dict.home.heroEyebrow}
         </p>
         <h1 className="max-w-3xl font-display text-5xl leading-tight tracking-wide uppercase sm:text-7xl">
-          Wear the colors <span className="text-sun-yellow">of Izola</span>
+          {dict.home.heroTitle}{" "}
+          <span className="text-sun-yellow">{dict.home.heroTitleAccent}</span>
         </h1>
         <p className="mt-6 max-w-xl text-lg text-sand/85">
-          Jerseys, scarves and fan wear straight from the Slovenian coast. Made
-          for matchday — and every day after.
+          {dict.home.heroSubtitle}
         </p>
         <Link
-          href="/products"
+          href={localizePath(locale, "/products")}
           className="mt-10 inline-block rounded-full bg-sun-yellow px-8 py-4 font-display text-lg tracking-wide text-ink uppercase transition-colors hover:bg-sun-yellow/85"
         >
-          Shop now
+          {dict.common.shopNow}
         </Link>
       </div>
       <div
@@ -46,18 +53,23 @@ function Hero() {
   );
 }
 
-async function FeaturedProducts() {
-  const products = await getProducts(4);
+async function FeaturedProducts({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
+  const products = await getProducts(locale, 4);
 
   if (products.length === 0) {
     return (
       <section className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
         <h2 className="font-display text-3xl tracking-wide text-deep-sea uppercase">
-          Kit drop incoming
+          {dict.home.featuredEmptyTitle}
         </h2>
         <p className="mx-auto mt-4 max-w-md text-deep-sea/70">
-          The squad is warming up. New merchandise lands here soon — check back
-          shortly.
+          {dict.home.featuredEmptyBody}
         </p>
       </section>
     );
@@ -67,22 +79,28 @@ async function FeaturedProducts() {
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div className="mb-8 flex items-end justify-between">
         <h2 className="font-display text-3xl tracking-wide text-deep-sea uppercase">
-          Fresh from the kit room
+          {dict.home.featuredTitle}
         </h2>
         <Link
-          href="/products"
+          href={localizePath(locale, "/products")}
           className="text-sm font-semibold text-sea-blue hover:text-deep-sea"
         >
-          View all →
+          {dict.common.viewAll} →
         </Link>
       </div>
-      <ProductGrid products={products} />
+      <ProductGrid products={products} locale={locale} dict={dict} />
     </section>
   );
 }
 
-async function Collections() {
-  const collections = await getCollections(6);
+async function Collections({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
+  const collections = await getCollections(locale, 6);
 
   if (collections.length === 0) return null;
 
@@ -90,13 +108,13 @@ async function Collections() {
     <section className="bg-sky-blue/15">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <h2 className="mb-8 font-display text-3xl tracking-wide text-deep-sea uppercase">
-          Shop by collection
+          {dict.home.collectionsTitle}
         </h2>
         <ul className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {collections.map((collection) => (
             <li key={collection.id}>
               <Link
-                href={`/collections/${collection.handle}`}
+                href={localizePath(locale, `/collections/${collection.handle}`)}
                 className="group relative block aspect-square overflow-hidden rounded-2xl bg-deep-sea shadow-sm transition-shadow hover:shadow-lg"
               >
                 {collection.image && (
@@ -121,34 +139,36 @@ async function Collections() {
   );
 }
 
-function ClubStory() {
+function ClubStory({ dict }: { dict: Dictionary }) {
   return (
     <section className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
       <h2 className="font-display text-3xl tracking-wide text-deep-sea uppercase">
-        More than a shirt
+        {dict.home.clubStoryTitle}
       </h2>
       <p className="mt-6 font-serif text-xl leading-relaxed text-ink/85">
-        Izola is a fishing town that lives for its football. From the youth
-        pitches to the first team, every jersey sold keeps the club moving
-        forward. When you wear the blue and yellow, you carry the town with
-        you.
+        {dict.home.clubStoryBody}
       </p>
     </section>
   );
 }
 
-export default function HomePage() {
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+
+  const dict = await getDictionary(locale);
+
   return (
     <>
-      <Hero />
-      <FeaturedProducts />
-      <MatchdayBanner />
-      <Collections />
-      <StatCounters />
-      <OnThePitch />
-      <FanStories />
-      <ClubStory />
-      <HomeContact />
+      <Hero locale={locale} dict={dict} />
+      <FeaturedProducts locale={locale} dict={dict} />
+      <MatchdayBanner locale={locale} dict={dict} />
+      <Collections locale={locale} dict={dict} />
+      <StatCounters locale={locale} stats={dict.stats} />
+      <OnThePitch locale={locale} dict={dict} />
+      <FanStories dict={dict} />
+      <ClubStory dict={dict} />
+      <HomeContact locale={locale} dict={dict} />
     </>
   );
 }

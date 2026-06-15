@@ -1,5 +1,8 @@
 "use server";
 
+import { type Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+
 export type ContactField = "name" | "email" | "message";
 
 export type ContactFormState = {
@@ -17,16 +20,17 @@ function readField(formData: FormData, key: string): string {
 }
 
 export async function submitContactForm(
+  locale: Locale,
   _prevState: ContactFormState,
   formData: FormData
 ): Promise<ContactFormState> {
+  const dict = await getDictionary(locale);
+  const t = dict.contact.form;
+
   // Honeypot: real supporters leave this hidden field empty; bots tend to fill
   // it. Pretend success so we don't tip them off.
   if (readField(formData, "company")) {
-    return {
-      status: "success",
-      message: "Thanks for reaching out — we'll be in touch soon.",
-    };
+    return { status: "success", message: t.successMessage };
   }
 
   const name = readField(formData, "name");
@@ -35,16 +39,14 @@ export async function submitContactForm(
   const message = readField(formData, "message");
 
   const fieldErrors: ContactFormState["fieldErrors"] = {};
-  if (name.length < 2) fieldErrors.name = "Please tell us your name.";
-  if (!EMAIL_PATTERN.test(email))
-    fieldErrors.email = "Enter a valid email address.";
-  if (message.length < 10)
-    fieldErrors.message = "Your message is a little short — add a few details.";
+  if (name.length < 2) fieldErrors.name = t.errorName;
+  if (!EMAIL_PATTERN.test(email)) fieldErrors.email = t.errorEmail;
+  if (message.length < 10) fieldErrors.message = t.errorMessage;
 
   if (Object.keys(fieldErrors).length > 0) {
     return {
       status: "error",
-      message: "Please fix the highlighted fields and try again.",
+      message: t.errorGeneric,
       fieldErrors,
     };
   }
@@ -54,9 +56,5 @@ export async function submitContactForm(
   // lost during the MVP phase.
   console.info("[contact] new message", { name, email, subject, message });
 
-  return {
-    status: "success",
-    message:
-      "Thanks for reaching out! We'll get back to you within a couple of days.",
-  };
+  return { status: "success", message: t.successMessage };
 }

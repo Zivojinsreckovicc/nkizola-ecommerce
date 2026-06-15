@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import {
+  LanguageSwitcher,
+  LanguageSwitcherFallback,
+} from "@/components/language-switcher";
 import { getCurrentCart } from "@/lib/cart";
+import { localizePath, type Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 function CartIcon() {
   return (
@@ -23,8 +29,8 @@ function CartIcon() {
   );
 }
 
-async function CartBadge() {
-  const cart = await getCurrentCart();
+async function CartBadge({ locale }: { locale: Locale }) {
+  const cart = await getCurrentCart(locale);
   const quantity = cart?.totalQuantity ?? 0;
 
   if (quantity === 0) return null;
@@ -36,11 +42,20 @@ async function CartBadge() {
   );
 }
 
-export function Header() {
+export function Header({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
+  const navClass =
+    "text-sm font-medium tracking-wide uppercase transition-colors hover:text-sky-blue";
+
   return (
     <header className="sticky top-0 z-10 bg-deep-sea text-sand shadow-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-4 sm:px-6">
-        <Link href="/" className="flex items-center">
+        <Link href={localizePath(locale, "/")} className="flex items-center">
           <Image
             src="/images/izola-logo.png"
             alt="NK Izola"
@@ -51,40 +66,38 @@ export function Header() {
         </Link>
 
         <nav className="flex items-center gap-6">
-          <Link
-            href="/"
-            className="text-sm font-medium tracking-wide uppercase transition-colors hover:text-sky-blue"
-          >
-            Home
+          <Link href={localizePath(locale, "/")} className={navClass}>
+            {dict.nav.home}
+          </Link>
+          <Link href={localizePath(locale, "/products")} className={navClass}>
+            {dict.nav.shop}
+          </Link>
+          <Link href={localizePath(locale, "/about")} className={navClass}>
+            {dict.nav.about}
+          </Link>
+          <Link href={localizePath(locale, "/contact")} className={navClass}>
+            {dict.nav.contact}
           </Link>
           <Link
-            href="/products"
-            className="text-sm font-medium tracking-wide uppercase transition-colors hover:text-sky-blue"
-          >
-            Shop
-          </Link>
-          <Link
-            href="/about"
-            className="text-sm font-medium tracking-wide uppercase transition-colors hover:text-sky-blue"
-          >
-            About
-          </Link>
-          <Link
-            href="/contact"
-            className="text-sm font-medium tracking-wide uppercase transition-colors hover:text-sky-blue"
-          >
-            Contact
-          </Link>
-          <Link
-            href="/cart"
-            aria-label="Cart"
+            href={localizePath(locale, "/cart")}
+            aria-label={dict.nav.cart}
             className="relative transition-colors hover:text-sky-blue"
           >
             <CartIcon />
             <Suspense>
-              <CartBadge />
+              <CartBadge locale={locale} />
             </Suspense>
           </Link>
+          <Suspense
+            fallback={
+              <LanguageSwitcherFallback
+                locale={locale}
+                label={dict.nav.language}
+              />
+            }
+          >
+            <LanguageSwitcher locale={locale} label={dict.nav.language} />
+          </Suspense>
         </nav>
       </div>
     </header>

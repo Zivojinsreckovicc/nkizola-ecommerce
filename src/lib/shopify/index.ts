@@ -19,8 +19,17 @@ import type {
   Product,
   ProductVariant,
 } from "./types";
+import { SHOPIFY_LOCALE, type Locale } from "@/lib/i18n/config";
 
 const API_VERSION = "2025-07";
+
+/**
+ * Storefront API `@inContext` variables for a given site locale. Country drives
+ * the market (currency/availability), language the translated fields.
+ */
+function inContext(locale: Locale): { country: string; language: string } {
+  return SHOPIFY_LOCALE[locale];
+}
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN;
 const accessToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
@@ -115,36 +124,50 @@ function reshapeCart(cart: RawCart): Cart {
 
 const CATALOG_CACHE = { tags: ["catalog"], revalidate: 300 };
 
-export async function getProducts(first = 100): Promise<Product[]> {
+export async function getProducts(
+  locale: Locale,
+  first = 100
+): Promise<Product[]> {
   if (!isShopifyConfigured()) return [];
 
   const data = await shopifyFetch<{ products: Connection<RawProduct> }>({
     query: getProductsQuery,
-    variables: { first, sortKey: "CREATED_AT", reverse: true },
+    variables: {
+      first,
+      sortKey: "CREATED_AT",
+      reverse: true,
+      ...inContext(locale),
+    },
     ...CATALOG_CACHE,
   });
 
   return flattenConnection(data.products).map(reshapeProduct);
 }
 
-export async function getProduct(handle: string): Promise<Product | null> {
+export async function getProduct(
+  locale: Locale,
+  handle: string
+): Promise<Product | null> {
   if (!isShopifyConfigured()) return null;
 
   const data = await shopifyFetch<{ product: RawProduct | null }>({
     query: getProductQuery,
-    variables: { handle },
+    variables: { handle, ...inContext(locale) },
     ...CATALOG_CACHE,
   });
 
   return data.product ? reshapeProduct(data.product) : null;
 }
 
-export async function getCollections(first = 20): Promise<Collection[]> {
+export async function getCollections(
+  locale: Locale,
+  first = 20
+): Promise<Collection[]> {
   if (!isShopifyConfigured()) return [];
 
   const data = await shopifyFetch<{ collections: Connection<Collection> }>({
     query: getCollectionsQuery,
-    variables: { first },
+    variables: { first, ...inContext(locale) },
     ...CATALOG_CACHE,
   });
 
@@ -152,13 +175,14 @@ export async function getCollections(first = 20): Promise<Collection[]> {
 }
 
 export async function getCollection(
+  locale: Locale,
   handle: string
 ): Promise<Collection | null> {
   if (!isShopifyConfigured()) return null;
 
   const data = await shopifyFetch<{ collection: Collection | null }>({
     query: getCollectionQuery,
-    variables: { handle },
+    variables: { handle, ...inContext(locale) },
     ...CATALOG_CACHE,
   });
 
@@ -166,6 +190,7 @@ export async function getCollection(
 }
 
 export async function getCollectionProducts(
+  locale: Locale,
   handle: string,
   first = 100
 ): Promise<Product[]> {
@@ -175,7 +200,7 @@ export async function getCollectionProducts(
     collection: { products: Connection<RawProduct> } | null;
   }>({
     query: getCollectionProductsQuery,
-    variables: { handle, first },
+    variables: { handle, first, ...inContext(locale) },
     ...CATALOG_CACHE,
   });
 
@@ -186,10 +211,13 @@ export async function getCollectionProducts(
 
 /* Cart — always fetched fresh, never cached. */
 
-export async function getCart(cartId: string): Promise<Cart | null> {
+export async function getCart(
+  locale: Locale,
+  cartId: string
+): Promise<Cart | null> {
   const data = await shopifyFetch<{ cart: RawCart | null }>({
     query: getCartQuery,
-    variables: { cartId },
+    variables: { cartId, ...inContext(locale) },
     cache: "no-store",
   });
 
@@ -198,10 +226,13 @@ export async function getCart(cartId: string): Promise<Cart | null> {
 
 type CartLineInput = { merchandiseId: string; quantity: number };
 
-export async function createCart(lines: CartLineInput[]): Promise<Cart> {
+export async function createCart(
+  locale: Locale,
+  lines: CartLineInput[]
+): Promise<Cart> {
   const data = await shopifyFetch<{ cartCreate: { cart: RawCart } }>({
     query: createCartMutation,
-    variables: { lines },
+    variables: { lines, ...inContext(locale) },
     cache: "no-store",
   });
 
@@ -209,12 +240,13 @@ export async function createCart(lines: CartLineInput[]): Promise<Cart> {
 }
 
 export async function addCartLines(
+  locale: Locale,
   cartId: string,
   lines: CartLineInput[]
 ): Promise<Cart> {
   const data = await shopifyFetch<{ cartLinesAdd: { cart: RawCart } }>({
     query: addToCartMutation,
-    variables: { cartId, lines },
+    variables: { cartId, lines, ...inContext(locale) },
     cache: "no-store",
   });
 
@@ -222,12 +254,13 @@ export async function addCartLines(
 }
 
 export async function updateCartLines(
+  locale: Locale,
   cartId: string,
   lines: { id: string; quantity: number }[]
 ): Promise<Cart> {
   const data = await shopifyFetch<{ cartLinesUpdate: { cart: RawCart } }>({
     query: updateCartMutation,
-    variables: { cartId, lines },
+    variables: { cartId, lines, ...inContext(locale) },
     cache: "no-store",
   });
 
@@ -235,12 +268,13 @@ export async function updateCartLines(
 }
 
 export async function removeCartLines(
+  locale: Locale,
   cartId: string,
   lineIds: string[]
 ): Promise<Cart> {
   const data = await shopifyFetch<{ cartLinesRemove: { cart: RawCart } }>({
     query: removeFromCartMutation,
-    variables: { cartId, lineIds },
+    variables: { cartId, lineIds, ...inContext(locale) },
     cache: "no-store",
   });
 

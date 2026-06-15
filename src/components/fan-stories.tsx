@@ -1,31 +1,8 @@
-type FanStory = {
-  quote: string;
-  name: string;
-  moment: string;
-};
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-// Editorial content, not commerce data — illustrative supporter stories that
-// set the tone. Swap these for real fan submissions when they come in.
-const stories: FanStory[] = [
-  {
-    quote:
-      "Last minute, rain coming off the sea, and the ball drops in off the far post. The whole stand went up at once — strangers hugging like family. I still get chills walking past that goal.",
-    name: "Marko",
-    moment: "94th-minute winner vs. Koper",
-  },
-  {
-    quote:
-      "My grandfather brought me to my first match in this scarf. Twenty years later I wrapped it around my own kid before kickoff. Blue and yellow runs in the family now.",
-    name: "Ana",
-    moment: "Three generations in the stand",
-  },
-  {
-    quote:
-      "We were 2–0 down at half time and nobody left. Two headers and a screamer later, the town didn't sleep that night. That's why I keep coming back.",
-    name: "Luka",
-    moment: "The comeback under the lights",
-  },
-];
+// Author names are language-independent, so they live alongside the localized
+// quotes/moments (which come from the dictionary, in matching order).
+const names = ["Marko", "Ana", "Luka"];
 
 function QuoteMark() {
   return (
@@ -38,27 +15,24 @@ function QuoteMark() {
   );
 }
 
-export function FanStories() {
+export function FanStories({ dict }: { dict: Dictionary }) {
   return (
     <section className="bg-sky-blue/15">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="max-w-2xl">
           <p className="mb-3 font-semibold tracking-widest text-sea-blue uppercase">
-            Fan stories
+            {dict.fanStories.eyebrow}
           </p>
           <h2 className="font-display text-3xl tracking-wide text-deep-sea uppercase sm:text-4xl">
-            The moments we never forget
+            {dict.fanStories.title}
           </h2>
-          <p className="mt-4 text-deep-sea/70">
-            Every shirt carries a memory. Here&rsquo;s what wearing the blue
-            and yellow means to the people in the stand.
-          </p>
+          <p className="mt-4 text-deep-sea/70">{dict.fanStories.body}</p>
         </div>
 
         <ul className="mt-12 grid gap-6 md:grid-cols-3">
-          {stories.map((story) => (
+          {dict.fanStories.items.map((story, index) => (
             <li
-              key={story.name}
+              key={names[index] ?? index}
               className="flex flex-col rounded-2xl border-t-4 border-sun-yellow bg-white p-6 shadow-sm"
             >
               <QuoteMark />
@@ -67,7 +41,7 @@ export function FanStories() {
               </blockquote>
               <footer className="mt-6 border-t border-deep-sea/10 pt-4">
                 <p className="font-display text-lg tracking-wide text-deep-sea uppercase">
-                  {story.name}
+                  {names[index]}
                 </p>
                 <p className="text-sm text-sea-blue">{story.moment}</p>
               </footer>

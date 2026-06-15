@@ -1,19 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
-import { addItem, buyNow } from "@/app/cart/actions";
+import { addItem, buyNow } from "@/app/[locale]/cart/actions";
 import { SubmitButton } from "@/components/submit-button";
+import { localizePath, type Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  locale,
+  dict,
+}: {
+  product: Product;
+  locale: Locale;
+  dict: Dictionary;
+}) {
   const variant =
     product.variants.find((v) => v.availableForSale) ?? product.variants[0];
   const canPurchase = product.availableForSale && Boolean(variant);
+  const href = localizePath(locale, `/products/${product.handle}`);
 
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-deep-sea/10 bg-white shadow-sm transition-shadow hover:shadow-lg">
       <Link
-        href={`/products/${product.handle}`}
+        href={href}
         className="relative block aspect-square overflow-hidden bg-sky-blue/10"
       >
         {product.featuredImage ? (
@@ -31,44 +42,44 @@ export function ProductCard({ product }: { product: Product }) {
         )}
         {!product.availableForSale && (
           <span className="absolute top-3 left-3 rounded-full bg-ink/80 px-3 py-1 text-xs font-semibold tracking-wide text-sand uppercase">
-            Sold out
+            {dict.common.soldOut}
           </span>
         )}
       </Link>
 
       <div className="flex flex-1 flex-col p-4">
-        <Link href={`/products/${product.handle}`}>
+        <Link href={href}>
           <h3 className="line-clamp-2 font-display text-base tracking-wide text-deep-sea uppercase transition-colors group-hover:text-sea-blue">
             {product.title}
           </h3>
         </Link>
         <p className="mt-1.5 text-lg font-semibold text-ink">
-          {formatPrice(product.priceRange.minVariantPrice)}
+          {formatPrice(product.priceRange.minVariantPrice, locale)}
         </p>
 
         <div className="mt-4 flex flex-col gap-2 pt-1">
           {canPurchase ? (
             <>
-              <form action={buyNow.bind(null, variant.id)}>
+              <form action={buyNow.bind(null, locale, variant.id)}>
                 <SubmitButton
-                  pendingText="Redirecting…"
+                  pendingText={dict.common.redirecting}
                   className="w-full rounded-full bg-sun-yellow px-4 py-2.5 text-xs font-semibold tracking-widest text-ink uppercase transition-colors hover:bg-sun-yellow/85"
                 >
-                  Buy now
+                  {dict.common.buyNow}
                 </SubmitButton>
               </form>
-              <form action={addItem.bind(null, variant.id)}>
+              <form action={addItem.bind(null, locale, variant.id)}>
                 <SubmitButton
-                  pendingText="Adding…"
+                  pendingText={dict.common.adding}
                   className="w-full rounded-full border border-deep-sea/30 px-4 py-2.5 text-xs font-semibold tracking-widest text-deep-sea uppercase transition-colors hover:border-deep-sea hover:bg-deep-sea hover:text-sand"
                 >
-                  Add to cart
+                  {dict.common.addToCart}
                 </SubmitButton>
               </form>
             </>
           ) : (
             <span className="block rounded-full bg-ink/5 px-4 py-2.5 text-center text-xs font-semibold tracking-widest text-ink/40 uppercase">
-              Sold out
+              {dict.common.soldOut}
             </span>
           )}
         </div>
@@ -77,12 +88,20 @@ export function ProductCard({ product }: { product: Product }) {
   );
 }
 
-export function ProductGrid({ products }: { products: Product[] }) {
+export function ProductGrid({
+  products,
+  locale,
+  dict,
+}: {
+  products: Product[];
+  locale: Locale;
+  dict: Dictionary;
+}) {
   return (
     <ul className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
       {products.map((product) => (
         <li key={product.id}>
-          <ProductCard product={product} />
+          <ProductCard product={product} locale={locale} dict={dict} />
         </li>
       ))}
     </ul>

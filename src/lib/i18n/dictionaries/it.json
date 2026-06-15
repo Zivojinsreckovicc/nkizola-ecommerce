@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "titleDefault": "Negozio NK Izola — Negozio ufficiale del club",
+    "titleTemplate": "%s | Negozio NK Izola",
+    "description": "Articoli ufficiali dell'NK Izola. Maglie, sciarpe e abbigliamento per i tifosi del club della costa slovena."
+  },
+  "nav": {
+    "home": "Home",
+    "shop": "Negozio",
+    "about": "Il club",
+    "contact": "Contatti",
+    "cart": "Carrello",
+    "language": "Lingua"
+  },
+  "common": {
+    "addToCart": "Aggiungi al carrello",
+    "buyNow": "Compra ora",
+    "soldOut": "Esaurito",
+    "checkout": "Cassa",
+    "viewAll": "Vedi tutto",
+    "shopNow": "Acquista ora",
+    "adding": "Aggiunta…",
+    "redirecting": "Reindirizzamento…",
+    "remove": "Rimuovi",
+    "removing": "Rimozione…",
+    "working": "Elaborazione…",
+    "loading": "Caricamento",
+    "backToProducts": "Tutti i prodotti",
+    "allProducts": "Tutti i prodotti"
+  },
+  "footer": {
+    "tagline": "Il negozio ufficiale dell'NK Izola. Indossato dalla squadra, creato per i tifosi della costa slovena.",
+    "storeHeading": "Negozio",
+    "clubHeading": "Club",
+    "clubText": "Una città. Un club. Sostieni l'NK Izola — ogni acquisto sostiene la squadra.",
+    "aboutLink": "Scopri l'NK Izola",
+    "copyright": "Tutti i diritti riservati."
+  },
+  "home": {
+    "heroEyebrow": "Negozio ufficiale del club",
+    "heroTitle": "Indossa i colori",
+    "heroTitleAccent": "di Izola",
+    "heroSubtitle": "Maglie, sciarpe e abbigliamento direttamente dalla costa slovena. Fatti per il giorno della partita — e per ogni giorno dopo.",
+    "featuredTitle": "Appena usciti dallo spogliatoio",
+    "featuredEmptyTitle": "Nuova collezione in arrivo",
+    "featuredEmptyBody": "La squadra si sta scaldando. I nuovi articoli arriveranno presto qui — torna a trovarci a breve.",
+    "collectionsTitle": "Acquista per collezione",
+    "clubStoryTitle": "Più di una maglia",
+    "clubStoryBody": "Izola è una città di pescatori che vive per il calcio. Dai campi giovanili alla prima squadra, ogni maglia venduta fa andare avanti il club. Quando indossi il blu e il giallo, porti con te tutta la città."
+  },
+  "stats": {
+    "heading": "Il club",
+    "headingAccent": "in numeri",
+    "labels": [
+      "Anni sulla costa",
+      "Gol in campionato in questa stagione",
+      "Membri e tifosi",
+      "Squadre giovanili attive"
+    ]
+  },
+  "matchday": {
+    "eyebrow": "Giorno di partita allo Stadion Drvarski",
+    "title": "Due squadre scendono in campo.",
+    "titleAccent": "Tutta la città trattiene il fiato.",
+    "body": "Ad ogni partita in casa la squadra si schiera sullo stesso campo con l'Adriatico alle spalle e le tribune piene di blu e giallo. Ciò che indossi sugli spalti, loro lo indossano sull'erba.",
+    "cta": "Acquista l'abbigliamento da partita",
+    "imageAlt": "L'NK Izola e la squadra ospite schierate al centro del campo prima del fischio d'inizio allo Stadion Drvarski"
+  },
+  "onThePitch": {
+    "eyebrow": "Dal campo",
+    "title": "Novanta minuti.",
+    "titleAccent": "Ogni singola settimana.",
+    "body1": "Ecco com'è il sabato a Izola — primi tocchi, contrasti all'ultimo respiro e tutto il rumore della città dal bordo campo. La squadra dà tutto per lo stemma, settimana dopo settimana.",
+    "body2": "Ogni maglia, sciarpa e maglia da allenamento venduta in questo negozio aiuta a far continuare tutto questo — dalla prima squadra fino alle giovanili che inseguono lo stesso sogno.",
+    "cta": "Acquista il kit",
+    "imageAlt": "Un attaccante dell'NK Izola che punta un difensore durante una partita in casa"
+  },
+  "fanStories": {
+    "eyebrow": "Storie dei tifosi",
+    "title": "I momenti che non dimentichiamo mai",
+    "body": "Ogni maglia porta con sé un ricordo. Ecco cosa significa indossare il blu e il giallo per le persone sugli spalti.",
+    "items": [
+      {
+        "quote": "Ultimo minuto, pioggia che arriva dal mare, e la palla entra rimbalzando sul palo lontano. Tutta la tribuna è esplosa in un attimo — sconosciuti che si abbracciavano come una famiglia. Mi vengono ancora i brividi passando davanti a quella porta.",
+        "moment": "Gol vittoria al 94º contro il Koper"
+      },
+      {
+        "quote": "Mio nonno mi portò alla mia prima partita con questa sciarpa. Vent'anni dopo l'ho avvolta attorno a mio figlio prima del fischio d'inizio. Il blu e il giallo ora scorrono in famiglia.",
+        "moment": "Tre generazioni in tribuna"
+      },
+      {
+        "quote": "Eravamo sotto 2–0 all'intervallo e nessuno se n'è andato. Due colpi di testa e un tiro a giro dopo, quella notte la città non ha dormito. Ecco perché continuo a tornare.",
+        "moment": "La rimonta sotto i riflettori"
+      }
+    ]
+  },
+  "homeContact": {
+    "eyebrow": "Salutaci",
+    "title": "Domande?",
+    "titleAccent": "Scrivici",
+    "body": "Ordini, taglie, rifornimenti o qualsiasi cosa blu e gialla — un tifoso dall'altra parte ti risponderà."
+  },
+  "products": {
+    "title": "Negozio",
+    "filterAll": "Tutti",
+    "empty": "Ancora nessun prodotto disponibile — la prima collezione è in arrivo.",
+    "metaTitle": "Negozio",
+    "metaDescription": "Sfoglia tutti gli articoli ufficiali dell'NK Izola — maglie, sciarpe, abbigliamento e accessori."
+  },
+  "collections": {
+    "empty": "Ancora niente in questa collezione — torna a trovarci presto.",
+    "metaDescriptionTemplate": "Articoli ufficiali NK Izola: {title} — acquista la collezione."
+  },
+  "cart": {
+    "title": "Il tuo carrello",
+    "emptyBody": "Il tuo carrello è vuoto — ma lo spogliatoio è pieno di articoli.",
+    "emptyCta": "Inizia a fare acquisti",
+    "subtotal": "Subtotale",
+    "total": "Totale",
+    "shippingNote": "Spedizione e tasse calcolate alla cassa.",
+    "decreaseQty": "Diminuisci quantità",
+    "increaseQty": "Aumenta quantità",
+    "metaTitle": "Carrello",
+    "metaDescription": "Controlla il tuo ordine NK Izola prima della cassa."
+  },
+  "about": {
+    "metaTitle": "Scopri l'NK Izola",
+    "metaDescription": "La storia dietro l'NK Izola — il club calcistico di Izola, Slovenia. Il suo stemma, la sua casa allo Stadion Drvarski e la comunità che riempie gli spalti.",
+    "heroEyebrow": "Il club",
+    "heroTitle": "Una città. Uno stemma.",
+    "heroTitleAccent": "Una famiglia.",
+    "heroBody": "L'NK Izola è il club calcistico di Izola — una piccola città di pescatori sulla costa slovena dove il mare, il sole e i pomeriggi di sabato allo Stadion Drvarski si fondono insieme.",
+    "crestEyebrow": "Lo stemma",
+    "crestTitle": "Mare, sole e",
+    "crestTitleAccent": "un pallone al centro",
+    "crestBody1": "Lo stemma prende i suoi colori direttamente dalla costa: il blu per l'Adriatico su cui si affaccia la città, e il giallo per il sole che vi splende sopra in un pomeriggio di partita. È lo stesso blu e giallo che vedrai sulle tribune dello Stadion Drvarski, sulle maglie da allenamento in giro per la città e su ogni maglia di questo negozio.",
+    "crestBody2": "Indossare lo stemma qui significa qualcosa — lega la prima squadra, le giovanili e i tifosi sotto un unico stemma, nella vittoria o nella sconfitta.",
+    "crestAlt": "Lo stemma del club NK Izola",
+    "communityEyebrow": "Costruito dalle fondamenta",
+    "communityTitle": "Un club di una piccola città",
+    "communityTitleAccent": "con grandi ambizioni",
+    "communityBody1": "Izola non è un grande posto, ma il giorno della partita sembra che si presenti tutta la città. La prima squadra lotta sullo stesso campo dove le giovanili si allenano tutta la settimana, inseguendo gli stessi colori e lo stesso stemma.",
+    "communityBody2": "Questo negozio esiste per sostenere questo impegno. Ogni ordine aiuta a finanziare l'attrezzatura, i viaggi e i programmi dell'accademia che continuano a portare i giocatori dalle strade locali al campo dello Stadion Drvarski.",
+    "communityCta": "Mettiti in contatto",
+    "communityImageAlt": "Un giocatore dell'NK Izola che avanza superando un difensore durante una partita in casa",
+    "stadiumEyebrow": "La nostra casa",
+    "stadiumTitle": "Stadion Drvarski.",
+    "stadiumTitleAccent": "Dove accade tutto.",
+    "stadiumBody": "Incastonato vicino alla costa, lo Stadion Drvarski è il luogo dove l'NK Izola gioca a calcio da generazioni. Niente palchi aziendali, nessuna distanza dal campo — solo la squadra, la panchina e una folla di blu e giallo abbastanza vicina da sentire ogni grido.",
+    "stadiumImageAlt": "L'NK Izola e la squadra ospite schierate al centro del campo prima del fischio d'inizio allo Stadion Drvarski",
+    "closingTitle": "Unisciti alla famiglia",
+    "closingBody": "Che tu sia di Izola, della costa più ampia o semplicemente ami questo gioco, c'è un posto per te sugli spalti. Prendi i tuoi colori, segui la squadra e ci vediamo allo Stadion Drvarski.",
+    "closingCta": "Acquista nel negozio"
+  },
+  "contact": {
+    "metaTitle": "Contatti",
+    "metaDescription": "Mettiti in contatto con il team del negozio NK Izola — domande su ordini, taglie, disponibilità o articoli del club dalla costa slovena.",
+    "headerEyebrow": "Ti ascoltiamo",
+    "headerTitle": "Mettiti in contatto",
+    "headerTitleAccent": "con il club",
+    "headerBody": "Domande su un ordine, taglie, rifornimenti o qualsiasi cosa blu e gialla? Scrivici — ti risponderà un tifoso dall'altra parte.",
+    "reachHeading": "Contatta il negozio",
+    "note": "Ogni messaggio ci aiuta a servire meglio i tifosi. Ordini e pagamento sono gestiti in modo sicuro tramite Shopify.",
+    "sendHeading": "Invia un messaggio",
+    "details": {
+      "emailLabel": "E-mail",
+      "locationLabel": "Dove siamo",
+      "locationValue": "Izola, costa slovena",
+      "matchdaysLabel": "Giorni di partita",
+      "matchdaysValue": "Stadion Drvarski — ogni partita in casa"
+    },
+    "form": {
+      "companyLabel": "Azienda",
+      "nameLabel": "Nome",
+      "namePlaceholder": "Il tuo nome",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "tu@esempio.com",
+      "subjectLabel": "Oggetto",
+      "subjectOptional": "(facoltativo)",
+      "subjectPlaceholder": "Ordine, taglia, disponibilità…",
+      "messageLabel": "Messaggio",
+      "messagePlaceholder": "Come possiamo aiutarti?",
+      "submit": "Invia messaggio",
+      "submitting": "Invio in corso…",
+      "successTitle": "Messaggio inviato",
+      "successMessage": "Grazie per averci scritto! Ti risponderemo entro un paio di giorni.",
+      "errorName": "Dicci il tuo nome, per favore.",
+      "errorEmail": "Inserisci un indirizzo e-mail valido.",
+      "errorMessage": "Il tuo messaggio è un po' corto — aggiungi qualche dettaglio.",
+      "errorGeneric": "Correggi i campi evidenziati e riprova."
+    }
+  },
+  "notFound": {
+    "title": "Fuori dal campo",
+    "body": "Questa pagina non esiste — ma lo spogliatoio sì.",
+    "cta": "Torna al negozio"
+  }
+}

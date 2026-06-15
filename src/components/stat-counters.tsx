@@ -1,19 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-type Stat = {
-  value: number;
-  label: string;
-  suffix?: string;
-};
-
-// Illustrative club figures — confirm and update with the real numbers.
-const stats: Stat[] = [
-  { value: 100, suffix: "+", label: "Years on the coast" },
-  { value: 38, suffix: "+", label: "League goals this season" },
-  { value: 1200, suffix: "+", label: "Members & supporters" },
-  { value: 11, label: "Active youth teams" },
+// Illustrative club figures — confirm and update with the real numbers. Labels
+// are localized and passed in (in matching order) from the dictionary.
+const figures: { value: number; suffix?: string }[] = [
+  { value: 100, suffix: "+" },
+  { value: 38, suffix: "+" },
+  { value: 1200, suffix: "+" },
+  { value: 11 },
 ];
 
 const DURATION_MS = 1600;
@@ -22,15 +19,21 @@ function easeOutCubic(t: number): number {
   return 1 - Math.pow(1 - t, 3);
 }
 
-export function StatCounters() {
+export function StatCounters({
+  locale,
+  stats,
+}: {
+  locale: Locale;
+  stats: Dictionary["stats"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
-  const [values, setValues] = useState<number[]>(() => stats.map(() => 0));
+  const [values, setValues] = useState<number[]>(() => figures.map(() => 0));
 
   useEffect(() => {
     const node = sectionRef.current;
     if (!node) return;
 
-    const finalValues = stats.map((stat) => stat.value);
+    const finalValues = figures.map((figure) => figure.value);
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -70,17 +73,18 @@ export function StatCounters() {
     <section ref={sectionRef} className="bg-deep-sea text-sand">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <h2 className="text-center font-display text-3xl tracking-wide uppercase sm:text-4xl">
-          The club <span className="text-sun-yellow">in numbers</span>
+          {stats.heading}{" "}
+          <span className="text-sun-yellow">{stats.headingAccent}</span>
         </h2>
         <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
-          {stats.map((stat, index) => (
-            <div key={stat.label} className="text-center">
+          {figures.map((figure, index) => (
+            <div key={stats.labels[index]} className="text-center">
               <dd className="font-display text-5xl tracking-wide text-sun-yellow tabular-nums sm:text-6xl">
-                {values[index].toLocaleString("en")}
-                {stat.suffix}
+                {values[index].toLocaleString(locale)}
+                {figure.suffix}
               </dd>
               <dt className="mt-3 text-sm font-medium tracking-wide text-sand/80 uppercase">
-                {stat.label}
+                {stats.labels[index]}
               </dt>
             </div>
           ))}

@@ -4,8 +4,10 @@ import { useActionState, useId } from "react";
 import {
   submitContactForm,
   type ContactFormState,
-} from "@/app/contact/actions";
+} from "@/app/[locale]/contact/actions";
 import { SubmitButton } from "@/components/submit-button";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 const initialContactState: ContactFormState = {
   status: "idle",
@@ -18,9 +20,16 @@ const labelClass =
   "block text-sm font-semibold tracking-wide text-deep-sea uppercase";
 const errorClass = "mt-1 text-sm text-red-600";
 
-export function ContactForm() {
+export function ContactForm({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
+  const t = dict.contact.form;
   const [state, formAction] = useActionState(
-    submitContactForm,
+    submitContactForm.bind(null, locale),
     initialContactState
   );
   const nameId = useId();
@@ -36,7 +45,7 @@ export function ContactForm() {
         className="rounded-2xl border border-sea-blue/20 bg-white p-8 text-center shadow-sm"
       >
         <p className="font-display text-2xl tracking-wide text-deep-sea uppercase">
-          Message sent
+          {t.successTitle}
         </p>
         <p className="mt-3 text-ink/75">{state.message}</p>
       </div>
@@ -56,13 +65,13 @@ export function ContactForm() {
 
       {/* Honeypot — visually hidden, ignored by humans, off the tab order. */}
       <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
-        <label htmlFor="company">Company</label>
+        <label htmlFor="company">{t.companyLabel}</label>
         <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       <div>
         <label htmlFor={nameId} className={labelClass}>
-          Name
+          {t.nameLabel}
         </label>
         <input
           id={nameId}
@@ -73,7 +82,7 @@ export function ContactForm() {
           aria-invalid={Boolean(errors.name)}
           aria-describedby={errors.name ? `${nameId}-error` : undefined}
           className={`${fieldClass} mt-2`}
-          placeholder="Your name"
+          placeholder={t.namePlaceholder}
         />
         {errors.name && (
           <p id={`${nameId}-error`} className={errorClass}>
@@ -84,7 +93,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor={emailId} className={labelClass}>
-          Email
+          {t.emailLabel}
         </label>
         <input
           id={emailId}
@@ -95,7 +104,7 @@ export function ContactForm() {
           aria-invalid={Boolean(errors.email)}
           aria-describedby={errors.email ? `${emailId}-error` : undefined}
           className={`${fieldClass} mt-2`}
-          placeholder="you@example.com"
+          placeholder={t.emailPlaceholder}
         />
         {errors.email && (
           <p id={`${emailId}-error`} className={errorClass}>
@@ -106,20 +115,21 @@ export function ContactForm() {
 
       <div>
         <label htmlFor={subjectId} className={labelClass}>
-          Subject <span className="font-normal text-ink/50">(optional)</span>
+          {t.subjectLabel}{" "}
+          <span className="font-normal text-ink/50">{t.subjectOptional}</span>
         </label>
         <input
           id={subjectId}
           name="subject"
           type="text"
           className={`${fieldClass} mt-2`}
-          placeholder="Order, sizing, stock…"
+          placeholder={t.subjectPlaceholder}
         />
       </div>
 
       <div>
         <label htmlFor={messageId} className={labelClass}>
-          Message
+          {t.messageLabel}
         </label>
         <textarea
           id={messageId}
@@ -129,7 +139,7 @@ export function ContactForm() {
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? `${messageId}-error` : undefined}
           className={`${fieldClass} mt-2 resize-y`}
-          placeholder="How can we help?"
+          placeholder={t.messagePlaceholder}
         />
         {errors.message && (
           <p id={`${messageId}-error`} className={errorClass}>
@@ -139,10 +149,10 @@ export function ContactForm() {
       </div>
 
       <SubmitButton
-        pendingText="Sending…"
+        pendingText={t.submitting}
         className="w-full rounded-full bg-sun-yellow px-8 py-4 font-display text-lg tracking-wide text-ink uppercase transition-colors hover:bg-sun-yellow/85 sm:w-auto"
       >
-        Send message
+        {t.submit}
       </SubmitButton>
     </form>
   );

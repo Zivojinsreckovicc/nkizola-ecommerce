@@ -4,24 +4,29 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { AddToCart } from "@/components/add-to-cart";
 import { VariantSelector } from "@/components/variant-selector";
+import { isLocale, localizePath } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { buildAlternates } from "@/lib/i18n/seo";
 import { getProduct } from "@/lib/shopify";
 import type { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
 
 type Props = {
-  params: Promise<{ handle: string }>;
+  params: Promise<{ locale: string; handle: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { handle } = await params;
-  const product = await getProduct(handle);
+  const { locale, handle } = await params;
+  if (!isLocale(locale)) return {};
 
+  const product = await getProduct(locale, handle);
   if (!product) return {};
 
   return {
     title: product.seo.title ?? product.title,
     description: product.seo.description ?? product.description,
+    alternates: buildAlternates(`/products/${handle}`),
     openGraph: product.featuredImage
       ? {
           images: [
@@ -55,11 +60,14 @@ function resolveSelectedOptions(
 }
 
 export default async function ProductPage({ params, searchParams }: Props) {
-  const [{ handle }, resolvedSearchParams] = await Promise.all([
+  const [{ locale, handle }, resolvedSearchParams] = await Promise.all([
     params,
     searchParams,
   ]);
-  const product = await getProduct(handle);
+  if (!isLocale(locale)) notFound();
+
+  const dict = await getDictionary(locale);
+  const product = await getProduct(locale, handle);
 
   if (!product) notFound();
 
@@ -75,8 +83,8 @@ export default async function ProductPage({ params, searchParams }: Props) {
     ) ?? null;
 
   const price = selectedVariant
-    ? formatPrice(selectedVariant.price)
-    : formatPrice(product.priceRange.minVariantPrice);
+    ? formatPrice(selectedVariant.price, locale)
+    : formatPrice(product.priceRange.minVariantPrice, locale);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -103,10 +111,10 @@ export default async function ProductPage({ params, searchParams }: Props) {
       />
 
       <Link
-        href="/products"
+        href={localizePath(locale, "/products")}
         className="text-sm font-semibold text-sea-blue hover:text-deep-sea"
       >
-        ← All products
+        ← {dict.common.backToProducts}
       </Link>
 
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
@@ -158,11 +166,12 @@ export default async function ProductPage({ params, searchParams }: Props) {
             <VariantSelector
               product={product}
               selectedOptions={selectedOptions}
+              locale={locale}
             />
           </div>
 
           <div className="mt-8">
-            <AddToCart variant={selectedVariant} />
+            <AddToCart variant={selectedVariant} locale={locale} dict={dict} />
           </div>
 
           {product.descriptionHtml && (

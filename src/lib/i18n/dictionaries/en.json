@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "titleDefault": "NK Izola Store — Official Club Shop",
+    "titleTemplate": "%s | NK Izola Store",
+    "description": "Official merchandise of NK Izola. Jerseys, scarves and fan wear for supporters of the club from the Slovenian coast."
+  },
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About",
+    "contact": "Contact",
+    "cart": "Cart",
+    "language": "Language"
+  },
+  "common": {
+    "addToCart": "Add to cart",
+    "buyNow": "Buy now",
+    "soldOut": "Sold out",
+    "checkout": "Checkout",
+    "viewAll": "View all",
+    "shopNow": "Shop now",
+    "adding": "Adding…",
+    "redirecting": "Redirecting…",
+    "remove": "Remove",
+    "removing": "Removing…",
+    "working": "Working…",
+    "loading": "Loading",
+    "backToProducts": "All products",
+    "allProducts": "All products"
+  },
+  "footer": {
+    "tagline": "The official store of NK Izola. Worn by the squad, made for the supporters on the Slovenian coast.",
+    "storeHeading": "Store",
+    "clubHeading": "Club",
+    "clubText": "One town. One club. Support NK Izola — every purchase backs the squad.",
+    "aboutLink": "About NK Izola",
+    "copyright": "All rights reserved."
+  },
+  "home": {
+    "heroEyebrow": "Official club store",
+    "heroTitle": "Wear the colors",
+    "heroTitleAccent": "of Izola",
+    "heroSubtitle": "Jerseys, scarves and fan wear straight from the Slovenian coast. Made for matchday — and every day after.",
+    "featuredTitle": "Fresh from the kit room",
+    "featuredEmptyTitle": "Kit drop incoming",
+    "featuredEmptyBody": "The squad is warming up. New merchandise lands here soon — check back shortly.",
+    "collectionsTitle": "Shop by collection",
+    "clubStoryTitle": "More than a shirt",
+    "clubStoryBody": "Izola is a fishing town that lives for its football. From the youth pitches to the first team, every jersey sold keeps the club moving forward. When you wear the blue and yellow, you carry the town with you."
+  },
+  "stats": {
+    "heading": "The club",
+    "headingAccent": "in numbers",
+    "labels": [
+      "Years on the coast",
+      "League goals this season",
+      "Members & supporters",
+      "Active youth teams"
+    ]
+  },
+  "matchday": {
+    "eyebrow": "Matchday at Stadion Drvarski",
+    "title": "Two teams walk out.",
+    "titleAccent": "One town holds its breath.",
+    "body": "Every home fixture, the squad lines up on this same pitch with the Adriatic at their backs and the stands full of blue and yellow. Whatever you wear on the terraces, they wear on the grass.",
+    "cta": "Shop matchday gear",
+    "imageAlt": "NK Izola and the visiting side lined up at the centre circle before kickoff at Stadion Drvarski"
+  },
+  "onThePitch": {
+    "eyebrow": "From the pitch",
+    "title": "Ninety minutes.",
+    "titleAccent": "Every single week.",
+    "body1": "This is what Saturday looks like in Izola — first touches, last-ditch tackles, and a town's worth of noise from the touchline. The squad gives everything for the crest, week in, week out.",
+    "body2": "Every jersey, scarf and training top sold in this store helps keep that going — from the first team down to the youth sides chasing the same dream.",
+    "cta": "Shop the kit",
+    "imageAlt": "An NK Izola forward driving at a defender during a home match"
+  },
+  "fanStories": {
+    "eyebrow": "Fan stories",
+    "title": "The moments we never forget",
+    "body": "Every shirt carries a memory. Here's what wearing the blue and yellow means to the people in the stand.",
+    "items": [
+      {
+        "quote": "Last minute, rain coming off the sea, and the ball drops in off the far post. The whole stand went up at once — strangers hugging like family. I still get chills walking past that goal.",
+        "moment": "94th-minute winner vs. Koper"
+      },
+      {
+        "quote": "My grandfather brought me to my first match in this scarf. Twenty years later I wrapped it around my own kid before kickoff. Blue and yellow runs in the family now.",
+        "moment": "Three generations in the stand"
+      },
+      {
+        "quote": "We were 2–0 down at half time and nobody left. Two headers and a screamer later, the town didn't sleep that night. That's why I keep coming back.",
+        "moment": "The comeback under the lights"
+      }
+    ]
+  },
+  "homeContact": {
+    "eyebrow": "Say hello",
+    "title": "Questions?",
+    "titleAccent": "Talk to us",
+    "body": "Orders, sizing, restocks or anything blue and yellow — a supporter on the other side will get back to you."
+  },
+  "products": {
+    "title": "Shop",
+    "filterAll": "All",
+    "empty": "No products available yet — the first drop is on its way.",
+    "metaTitle": "Shop",
+    "metaDescription": "Browse all official NK Izola merchandise — jerseys, scarves, fan wear and accessories."
+  },
+  "collections": {
+    "empty": "Nothing in this collection yet — check back soon.",
+    "metaDescriptionTemplate": "Official NK Izola {title} — shop the collection."
+  },
+  "cart": {
+    "title": "Your cart",
+    "emptyBody": "Your cart is empty — the kit room is fully stocked though.",
+    "emptyCta": "Start shopping",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "shippingNote": "Shipping and taxes calculated at checkout.",
+    "decreaseQty": "Decrease quantity",
+    "increaseQty": "Increase quantity",
+    "metaTitle": "Cart",
+    "metaDescription": "Review your NK Izola order before checkout."
+  },
+  "about": {
+    "metaTitle": "About NK Izola",
+    "metaDescription": "The story behind NK Izola — the football club of Izola, Slovenia. Its crest, its home at Stadion Drvarski, and the community that fills the stands.",
+    "heroEyebrow": "About the club",
+    "heroTitle": "One town. One badge.",
+    "heroTitleAccent": "One family.",
+    "heroBody": "NK Izola is the football club of Izola — a small fishing town on the Slovenian coast where the sea, the sun and Saturday afternoons at Stadion Drvarski all run together.",
+    "crestEyebrow": "The crest",
+    "crestTitle": "Sea, sun and",
+    "crestTitleAccent": "a ball at the centre",
+    "crestBody1": "The badge takes its colours straight from the coast: blue for the Adriatic that the town looks out on, and yellow for the sun that sits over it on a matchday afternoon. It's the same blue and yellow you'll see on the terraces at Stadion Drvarski, on training tops around town, and on every shirt in this store.",
+    "crestBody2": "Wearing the crest means something here — it ties the first team, the youth sides and the supporters together under one badge, win or lose.",
+    "crestAlt": "The NK Izola club crest",
+    "communityEyebrow": "Built from the ground up",
+    "communityTitle": "A small town club",
+    "communityTitleAccent": "with big ambitions",
+    "communityBody1": "Izola isn't a big place, but on matchday it feels like the whole town shows up. The senior squad battles it out on the same pitch where the youth teams train all week, chasing the same colours and the same crest.",
+    "communityBody2": "This store exists to back that effort. Every order helps fund kit, travel and the academy programmes that keep bringing players through from the local streets onto the pitch at Stadion Drvarski.",
+    "communityCta": "Get in touch",
+    "communityImageAlt": "An NK Izola player driving forward past a defender during a home match",
+    "stadiumEyebrow": "Our home",
+    "stadiumTitle": "Stadion Drvarski.",
+    "stadiumTitleAccent": "Where it all happens.",
+    "stadiumBody": "Tucked close to the coast, Stadion Drvarski is where NK Izola has played its football for generations. No corporate boxes, no distance from the pitch — just the squad, the bench and a crowd of blue and yellow close enough to hear every shout.",
+    "stadiumImageAlt": "NK Izola and the visiting side lined up at the centre circle before kickoff at Stadion Drvarski",
+    "closingTitle": "Join the family",
+    "closingBody": "Whether you're from Izola, the wider coast, or just love the game, there's a place for you in the stands. Pick up your colours, follow the squad, and we'll see you at Stadion Drvarski.",
+    "closingCta": "Shop the store"
+  },
+  "contact": {
+    "metaTitle": "Contact Us",
+    "metaDescription": "Get in touch with the NK Izola store team — questions about orders, sizing, stock or club merchandise from the Slovenian coast.",
+    "headerEyebrow": "We're listening",
+    "headerTitle": "Get in touch",
+    "headerTitleAccent": "with the club",
+    "headerBody": "Questions about an order, sizing, restocks or anything blue and yellow? Drop us a line — a supporter on the other side will answer.",
+    "reachHeading": "Reach the store",
+    "note": "Every message helps us serve the supporters better. Orders and checkout are handled securely through Shopify.",
+    "sendHeading": "Send a message",
+    "details": {
+      "emailLabel": "Email",
+      "locationLabel": "Find us",
+      "locationValue": "Izola, Slovenian coast",
+      "matchdaysLabel": "Matchdays",
+      "matchdaysValue": "Stadion Drvarski — every home game"
+    },
+    "form": {
+      "companyLabel": "Company",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "subjectLabel": "Subject",
+      "subjectOptional": "(optional)",
+      "subjectPlaceholder": "Order, sizing, stock…",
+      "messageLabel": "Message",
+      "messagePlaceholder": "How can we help?",
+      "submit": "Send message",
+      "submitting": "Sending…",
+      "successTitle": "Message sent",
+      "successMessage": "Thanks for reaching out! We'll get back to you within a couple of days.",
+      "errorName": "Please tell us your name.",
+      "errorEmail": "Enter a valid email address.",
+      "errorMessage": "Your message is a little short — add a few details.",
+      "errorGeneric": "Please fix the highlighted fields and try again."
+    }
+  },
+  "notFound": {
+    "title": "Off the pitch",
+    "body": "This page doesn't exist — but the kit room does.",
+    "cta": "Back to the shop"
+  }
+}

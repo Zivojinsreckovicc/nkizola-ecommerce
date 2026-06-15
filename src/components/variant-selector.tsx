@@ -1,16 +1,18 @@
 import Link from "next/link";
+import { localizePath, type Locale } from "@/lib/i18n/config";
 import type { Product } from "@/lib/shopify/types";
 
 type Props = {
   product: Product;
   selectedOptions: Record<string, string>;
+  locale: Locale;
 };
 
 /**
  * Option values are encoded in the URL query string so variant selection
  * stays server-rendered and shareable (e.g. /products/jersey?size=M).
  */
-export function VariantSelector({ product, selectedOptions }: Props) {
+export function VariantSelector({ product, selectedOptions, locale }: Props) {
   const options = product.options.filter(
     (option) => option.values.length > 1 || option.name !== "Title"
   );
@@ -44,7 +46,7 @@ export function VariantSelector({ product, selectedOptions }: Props) {
               return (
                 <Link
                   key={value}
-                  href={`/products/${product.handle}?${params}`}
+                  href={`${localizePath(locale, `/products/${product.handle}`)}?${params}`}
                   replace
                   scroll={false}
                   aria-current={isSelected ? "true" : undefined}

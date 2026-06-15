@@ -1,12 +1,17 @@
 import { ContactForm } from "@/components/contact-form";
+import { getContactDetails } from "@/lib/contact";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-const details = [
-  { label: "Email", value: "store@nkizola.si", href: "mailto:store@nkizola.si" },
-  { label: "Find us", value: "Izola, Slovenian coast" },
-  { label: "Matchdays", value: "Stadion Drvarski — every home game" },
-];
+export function HomeContact({
+  locale,
+  dict,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+}) {
+  const details = getContactDetails(dict);
 
-export function HomeContact() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
       <div className="overflow-hidden rounded-3xl bg-deep-sea text-sand shadow-xl">
@@ -14,14 +19,16 @@ export function HomeContact() {
         <div className="grid gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col justify-center">
             <p className="mb-3 font-semibold tracking-widest text-sky-blue uppercase">
-              Say hello
+              {dict.homeContact.eyebrow}
             </p>
             <h2 className="font-display text-3xl leading-tight tracking-wide uppercase sm:text-4xl">
-              Questions? <span className="text-sun-yellow">Talk to us</span>
+              {dict.homeContact.title}{" "}
+              <span className="text-sun-yellow">
+                {dict.homeContact.titleAccent}
+              </span>
             </h2>
             <p className="mt-4 max-w-md text-sand/85">
-              Orders, sizing, restocks or anything blue and yellow — a supporter
-              on the other side will get back to you.
+              {dict.homeContact.body}
             </p>
             <dl className="mt-8 space-y-4">
               {details.map((detail) => (
@@ -47,7 +54,7 @@ export function HomeContact() {
           </div>
 
           <div className="rounded-2xl bg-sand p-6 sm:p-8">
-            <ContactForm />
+            <ContactForm locale={locale} dict={dict} />
           </div>
         </div>
       </div>
