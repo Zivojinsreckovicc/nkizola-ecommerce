@@ -1,13 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+import { cache, Suspense } from "react";
 import {
   LanguageSwitcher,
   LanguageSwitcherFallback,
 } from "@/components/language-switcher";
+import { MobileNav } from "@/components/mobile-nav";
 import { getCurrentCart } from "@/lib/cart";
 import { localizePath, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+
+// The header renders the cart link twice (desktop nav + mobile bar); cache the
+// lookup so both badges share a single request.
+const getCachedCart = cache(getCurrentCart);
 
 function CartIcon() {
   return (
@@ -30,7 +35,7 @@ function CartIcon() {
 }
 
 async function CartBadge({ locale }: { locale: Locale }) {
-  const cart = await getCurrentCart(locale);
+  const cart = await getCachedCart(locale);
   const quantity = cart?.totalQuantity ?? 0;
 
   if (quantity === 0) return null;
@@ -39,6 +44,21 @@ async function CartBadge({ locale }: { locale: Locale }) {
     <span className="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-sun-yellow px-1 text-xs font-bold text-ink">
       {quantity}
     </span>
+  );
+}
+
+function CartLink({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  return (
+    <Link
+      href={localizePath(locale, "/cart")}
+      aria-label={dict.nav.cart}
+      className="relative transition-colors hover:text-sky-blue"
+    >
+      <CartIcon />
+      <Suspense>
+        <CartBadge locale={locale} />
+      </Suspense>
+    </Link>
   );
 }
 
@@ -65,7 +85,8 @@ export function Header({
           />
         </Link>
 
-        <nav className="flex items-center gap-6">
+        {/* Desktop navigation — unchanged, hidden on mobile. */}
+        <nav className="hidden items-center gap-6 md:flex">
           <Link href={localizePath(locale, "/")} className={navClass}>
             {dict.nav.home}
           </Link>
@@ -78,16 +99,7 @@ export function Header({
           <Link href={localizePath(locale, "/contact")} className={navClass}>
             {dict.nav.contact}
           </Link>
-          <Link
-            href={localizePath(locale, "/cart")}
-            aria-label={dict.nav.cart}
-            className="relative transition-colors hover:text-sky-blue"
-          >
-            <CartIcon />
-            <Suspense>
-              <CartBadge locale={locale} />
-            </Suspense>
-          </Link>
+          <CartLink locale={locale} dict={dict} />
           <Suspense
             fallback={
               <LanguageSwitcherFallback
@@ -99,6 +111,12 @@ export function Header({
             <LanguageSwitcher locale={locale} label={dict.nav.language} />
           </Suspense>
         </nav>
+
+        {/* Mobile bar — cart stays one tap away, links collapse into a menu. */}
+        <div className="flex items-center gap-5 md:hidden">
+          <CartLink locale={locale} dict={dict} />
+          <MobileNav locale={locale} dict={dict} />
+        </div>
       </div>
     </header>
   );

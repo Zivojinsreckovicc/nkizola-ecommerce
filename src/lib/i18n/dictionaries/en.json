@@ -10,7 +10,8 @@
     "about": "About",
     "contact": "Contact",
     "cart": "Cart",
-    "language": "Language"
+    "language": "Language",
+    "menu": "Menu"
   },
   "common": {
     "addToCart": "Add to cart",
