@@ -49,7 +49,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 - Sky Blue #5DB4E6
 - Sea Blue #2891C4
-- Deep Sea #0D3A5A
+- Deep Sea #0C0D29
 - Sun Yellow #F4C43E
 - Ink #0A1622
 - Coastal Sand #F1EAD8
