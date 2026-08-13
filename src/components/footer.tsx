@@ -15,10 +15,10 @@ export function Footer({
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
         <div>
           <Image
-            src="/images/izola-logo.png"
+            src="/images/nk-izola-logo.webp"
             alt="NK Izola"
             width={60}
-            height={75}
+            height={77}
           />
           <p className="mt-3 max-w-xs text-sm text-sand/80">
             {dict.footer.tagline}

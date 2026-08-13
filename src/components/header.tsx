@@ -77,10 +77,10 @@ export function Header({
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-4 sm:px-6">
         <Link href={localizePath(locale, "/")} className="flex items-center">
           <Image
-            src="/images/izola-logo.png"
+            src="/images/nk-izola-logo.webp"
             alt="NK Izola"
             width={60}
-            height={75}
+            height={77}
             priority
           />
         </Link>

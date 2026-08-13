@@ -61,10 +61,10 @@ function CrestStory({ dict }: { dict: Dictionary }) {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
         <div className="flex items-center justify-center rounded-2xl bg-deep-sea p-12">
           <Image
-            src="/images/izola-logo.png"
+            src="/images/nk-izola-logo.webp"
             alt={dict.about.crestAlt}
-            width={280}
-            height={276}
+            width={408}
+            height={526}
             className="h-auto w-48 sm:w-64"
           />
         </div>
