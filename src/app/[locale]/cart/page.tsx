@@ -165,7 +165,7 @@ export default async function CartPage({ params }: Props) {
             ))}
           </ul>
 
-          <div className="mt-4 rounded-xl bg-white p-6">
+          <div className="mt-4 rounded-xl border border-deep-sea/10 bg-white p-6 shadow-sm">
             <div className="flex justify-between text-sm text-ink/70">
               <span>{dict.cart.subtotal}</span>
               <span>{formatPrice(cart.cost.subtotalAmount, locale)}</span>
