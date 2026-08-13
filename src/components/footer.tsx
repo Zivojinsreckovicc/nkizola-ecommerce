@@ -18,7 +18,7 @@ export function Footer({
             src="/images/nk-izola-logo.webp"
             alt="NK Izola"
             width={60}
-            height={77}
+            height={70}
           />
           <p className="mt-3 max-w-xs text-sm text-sand/80">
             {dict.footer.tagline}

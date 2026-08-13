@@ -63,8 +63,8 @@ function CrestStory({ dict }: { dict: Dictionary }) {
           <Image
             src="/images/nk-izola-logo.webp"
             alt={dict.about.crestAlt}
-            width={408}
-            height={526}
+            width={1159}
+            height={1358}
             className="h-auto w-48 sm:w-64"
           />
         </div>

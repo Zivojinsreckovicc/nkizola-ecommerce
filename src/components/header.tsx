@@ -80,7 +80,7 @@ export function Header({
             src="/images/nk-izola-logo.webp"
             alt="NK Izola"
             width={60}
-            height={77}
+            height={70}
             priority
           />
         </Link>
