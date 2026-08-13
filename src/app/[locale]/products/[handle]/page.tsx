@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { AddToCart } from "@/components/add-to-cart";
+import { Reveal } from "@/components/reveal";
 import { VariantSelector } from "@/components/variant-selector";
 import { isLocale, localizePath } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -118,7 +119,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
       </Link>
 
       <div className="mt-6 grid gap-10 lg:grid-cols-2">
-        <div className="space-y-4">
+        <Reveal immediate className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-xl bg-white">
             {product.featuredImage ? (
               <Image
@@ -154,9 +155,9 @@ export default async function ProductPage({ params, searchParams }: Props) {
               ))}
             </ul>
           )}
-        </div>
+        </Reveal>
 
-        <div>
+        <Reveal immediate delay={0.1}>
           <h1 className="font-display text-4xl tracking-wide text-deep-sea uppercase">
             {product.title}
           </h1>
@@ -180,7 +181,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
               dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
             />
           )}
-        </div>
+        </Reveal>
       </div>
     </div>
   );

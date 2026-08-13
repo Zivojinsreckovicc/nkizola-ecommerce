@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Stagger, StaggerItem } from "@/components/reveal";
 import { localizePath, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -20,24 +21,32 @@ export function MatchdayBanner({
         className="absolute inset-0 object-cover"
       />
       <div className="absolute inset-0 bg-deep-sea/70" />
-      <div className="relative mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 sm:py-24">
-        <p className="font-semibold tracking-widest text-sky-blue uppercase">
-          {dict.matchday.eyebrow}
-        </p>
-        <h2 className="mx-auto mt-4 max-w-2xl font-display text-3xl leading-tight tracking-wide uppercase sm:text-5xl">
-          {dict.matchday.title}{" "}
-          <span className="text-sun-yellow">{dict.matchday.titleAccent}</span>
-        </h2>
-        <p className="mx-auto mt-6 max-w-xl text-lg text-sand/85">
-          {dict.matchday.body}
-        </p>
-        <Link
-          href={localizePath(locale, "/products")}
-          className="mt-10 inline-block rounded-full bg-sun-yellow px-8 py-4 font-display text-lg tracking-wide text-ink uppercase transition-colors hover:bg-sun-yellow/85"
-        >
-          {dict.matchday.cta}
-        </Link>
-      </div>
+      <Stagger className="relative mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 sm:py-24">
+        <StaggerItem>
+          <p className="font-semibold tracking-widest text-sky-blue uppercase">
+            {dict.matchday.eyebrow}
+          </p>
+        </StaggerItem>
+        <StaggerItem>
+          <h2 className="mx-auto mt-4 max-w-2xl font-display text-3xl leading-tight tracking-wide uppercase sm:text-5xl">
+            {dict.matchday.title}{" "}
+            <span className="text-sun-yellow">{dict.matchday.titleAccent}</span>
+          </h2>
+        </StaggerItem>
+        <StaggerItem>
+          <p className="mx-auto mt-6 max-w-xl text-lg text-sand/85">
+            {dict.matchday.body}
+          </p>
+        </StaggerItem>
+        <StaggerItem>
+          <Link
+            href={localizePath(locale, "/products")}
+            className="mt-10 inline-block rounded-full bg-sun-yellow px-8 py-4 font-display text-lg tracking-wide text-ink uppercase transition-colors hover:bg-sun-yellow/85"
+          >
+            {dict.matchday.cta}
+          </Link>
+        </StaggerItem>
+      </Stagger>
     </section>
   );
 }

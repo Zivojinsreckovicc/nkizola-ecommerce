@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Reveal, Stagger, StaggerItem } from "@/components/reveal";
 import { StatCounters } from "@/components/stat-counters";
 import { isLocale, localizePath, type Locale } from "@/lib/i18n/config";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
@@ -35,18 +36,27 @@ function AboutHero({ dict }: { dict: Dictionary }) {
         className="absolute inset-0 object-cover"
       />
       <div className="absolute inset-0 bg-deep-sea/75" />
-      <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-        <p className="mb-4 font-semibold tracking-widest text-sky-blue uppercase">
-          {dict.about.heroEyebrow}
-        </p>
-        <h1 className="max-w-3xl font-display text-4xl leading-tight tracking-wide uppercase sm:text-6xl">
-          {dict.about.heroTitle}{" "}
-          <span className="text-sun-yellow">{dict.about.heroTitleAccent}</span>
-        </h1>
-        <p className="mt-6 max-w-xl text-lg text-sand/85">
-          {dict.about.heroBody}
-        </p>
-      </div>
+      <Stagger
+        immediate
+        className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20"
+      >
+        <StaggerItem>
+          <p className="mb-4 font-semibold tracking-widest text-sky-blue uppercase">
+            {dict.about.heroEyebrow}
+          </p>
+        </StaggerItem>
+        <StaggerItem>
+          <h1 className="max-w-3xl font-display text-4xl leading-tight tracking-wide uppercase sm:text-6xl">
+            {dict.about.heroTitle}{" "}
+            <span className="text-sun-yellow">{dict.about.heroTitleAccent}</span>
+          </h1>
+        </StaggerItem>
+        <StaggerItem>
+          <p className="mt-6 max-w-xl text-lg text-sand/85">
+            {dict.about.heroBody}
+          </p>
+        </StaggerItem>
+      </Stagger>
       <div
         aria-hidden="true"
         className="relative h-2 bg-linear-to-r from-sky-blue via-sea-blue to-sun-yellow"
@@ -59,7 +69,7 @@ function CrestStory({ dict }: { dict: Dictionary }) {
   return (
     <section className="bg-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <div className="flex items-center justify-center rounded-2xl bg-deep-sea p-12">
+        <Reveal className="flex items-center justify-center rounded-2xl bg-deep-sea p-12">
           <Image
             src="/images/nk-izola-logo.webp"
             alt={dict.about.crestAlt}
@@ -67,8 +77,8 @@ function CrestStory({ dict }: { dict: Dictionary }) {
             height={1358}
             className="h-auto w-48 sm:w-64"
           />
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={0.1}>
           <p className="mb-3 font-semibold tracking-widest text-sea-blue uppercase">
             {dict.about.crestEyebrow}
           </p>
@@ -80,7 +90,7 @@ function CrestStory({ dict }: { dict: Dictionary }) {
           </h2>
           <p className="mt-4 text-deep-sea/70">{dict.about.crestBody1}</p>
           <p className="mt-4 text-deep-sea/70">{dict.about.crestBody2}</p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -96,7 +106,7 @@ function CommunitySection({
   return (
     <section className="bg-sky-blue/15">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <div className="order-last lg:order-first">
+        <Reveal className="order-last lg:order-first" delay={0.1}>
           <p className="mb-3 font-semibold tracking-widest text-sea-blue uppercase">
             {dict.about.communityEyebrow}
           </p>
@@ -114,8 +124,8 @@ function CommunitySection({
           >
             {dict.about.communityCta}
           </Link>
-        </div>
-        <div className="relative aspect-[3/2] overflow-hidden rounded-2xl">
+        </Reveal>
+        <Reveal className="relative aspect-[3/2] overflow-hidden rounded-2xl">
           <Image
             src="/images/image1.webp"
             alt={dict.about.communityImageAlt}
@@ -123,7 +133,7 @@ function CommunitySection({
             sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
           />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -140,27 +150,36 @@ function StadiumSection({ dict }: { dict: Dictionary }) {
         className="absolute inset-0 object-cover"
       />
       <div className="absolute inset-0 bg-deep-sea/70" />
-      <div className="relative mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 sm:py-24">
-        <p className="font-semibold tracking-widest text-sky-blue uppercase">
-          {dict.about.stadiumEyebrow}
-        </p>
-        <h2 className="mx-auto mt-4 max-w-2xl font-display text-3xl leading-tight tracking-wide uppercase sm:text-5xl">
-          {dict.about.stadiumTitle}{" "}
-          <span className="text-sun-yellow">
-            {dict.about.stadiumTitleAccent}
-          </span>
-        </h2>
-        <p className="mx-auto mt-6 max-w-xl text-lg text-sand/85">
-          {dict.about.stadiumBody}
-        </p>
-      </div>
+      <Stagger className="relative mx-auto max-w-6xl px-4 py-16 text-center sm:px-6 sm:py-24">
+        <StaggerItem>
+          <p className="font-semibold tracking-widest text-sky-blue uppercase">
+            {dict.about.stadiumEyebrow}
+          </p>
+        </StaggerItem>
+        <StaggerItem>
+          <h2 className="mx-auto mt-4 max-w-2xl font-display text-3xl leading-tight tracking-wide uppercase sm:text-5xl">
+            {dict.about.stadiumTitle}{" "}
+            <span className="text-sun-yellow">
+              {dict.about.stadiumTitleAccent}
+            </span>
+          </h2>
+        </StaggerItem>
+        <StaggerItem>
+          <p className="mx-auto mt-6 max-w-xl text-lg text-sand/85">
+            {dict.about.stadiumBody}
+          </p>
+        </StaggerItem>
+      </Stagger>
     </section>
   );
 }
 
 function ClosingCta({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
+    <Reveal
+      as="section"
+      className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6"
+    >
       <h2 className="font-display text-3xl tracking-wide text-deep-sea uppercase">
         {dict.about.closingTitle}
       </h2>
@@ -173,7 +192,7 @@ function ClosingCta({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       >
         {dict.about.closingCta}
       </Link>
-    </section>
+    </Reveal>
   );
 }
 

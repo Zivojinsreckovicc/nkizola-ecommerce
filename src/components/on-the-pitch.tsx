@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Reveal } from "@/components/reveal";
 import { localizePath, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -13,7 +14,7 @@ export function OnThePitch({
   return (
     <section className="bg-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <div className="relative aspect-[3/2] overflow-hidden rounded-2xl">
+        <Reveal className="relative aspect-[3/2] overflow-hidden rounded-2xl">
           <Image
             src="/images/image1.webp"
             alt={dict.onThePitch.imageAlt}
@@ -21,8 +22,8 @@ export function OnThePitch({
             sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
           />
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={0.1}>
           <p className="mb-3 font-semibold tracking-widest text-sea-blue uppercase">
             {dict.onThePitch.eyebrow}
           </p>
@@ -40,7 +41,7 @@ export function OnThePitch({
           >
             {dict.onThePitch.cta}
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

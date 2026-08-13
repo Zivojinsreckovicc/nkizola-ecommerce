@@ -1,3 +1,4 @@
+import { Reveal, Stagger, StaggerItem } from "@/components/reveal";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 // Author names are language-independent, so they live alongside the localized
@@ -19,7 +20,7 @@ export function FanStories({ dict }: { dict: Dictionary }) {
   return (
     <section className="bg-sky-blue/15">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-        <div className="max-w-2xl">
+        <Reveal className="max-w-2xl">
           <p className="mb-3 font-semibold tracking-widest text-sea-blue uppercase">
             {dict.fanStories.eyebrow}
           </p>
@@ -27,11 +28,12 @@ export function FanStories({ dict }: { dict: Dictionary }) {
             {dict.fanStories.title}
           </h2>
           <p className="mt-4 text-deep-sea/70">{dict.fanStories.body}</p>
-        </div>
+        </Reveal>
 
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
+        <Stagger as="ul" className="mt-12 grid gap-6 md:grid-cols-3">
           {dict.fanStories.items.map((story, index) => (
-            <li
+            <StaggerItem
+              as="li"
               key={names[index] ?? index}
               className="flex flex-col rounded-2xl border-t-4 border-sun-yellow bg-white p-6 shadow-sm"
             >
@@ -45,9 +47,9 @@ export function FanStories({ dict }: { dict: Dictionary }) {
                 </p>
                 <p className="text-sm text-sea-blue">{story.moment}</p>
               </footer>
-            </li>
+            </StaggerItem>
           ))}
-        </ul>
+        </Stagger>
       </div>
     </section>
   );

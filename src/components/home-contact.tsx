@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/contact-form";
+import { Reveal } from "@/components/reveal";
 import { getContactDetails } from "@/lib/contact";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -14,7 +15,7 @@ export function HomeContact({
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-      <div className="overflow-hidden rounded-3xl bg-deep-sea text-sand shadow-xl">
+      <Reveal className="overflow-hidden rounded-3xl bg-deep-sea text-sand shadow-xl">
         <div className="h-2 bg-linear-to-r from-sky-blue via-sea-blue to-sun-yellow" />
         <div className="grid gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col justify-center">
@@ -57,7 +58,7 @@ export function HomeContact({
             <ContactForm locale={locale} dict={dict} />
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

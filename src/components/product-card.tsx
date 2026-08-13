@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { addItem, buyNow } from "@/app/[locale]/cart/actions";
+import { Stagger, StaggerItem } from "@/components/reveal";
 import { SubmitButton } from "@/components/submit-button";
 import { localizePath, type Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -98,12 +99,16 @@ export function ProductGrid({
   dict: Dictionary;
 }) {
   return (
-    <ul className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+    <Stagger
+      as="ul"
+      className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"
+      stagger={0.06}
+    >
       {products.map((product) => (
-        <li key={product.id}>
+        <StaggerItem as="li" key={product.id}>
           <ProductCard product={product} locale={locale} dict={dict} />
-        </li>
+        </StaggerItem>
       ))}
-    </ul>
+    </Stagger>
   );
 }

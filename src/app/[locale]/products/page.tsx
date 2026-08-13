@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/product-card";
+import { Reveal } from "@/components/reveal";
 import { isLocale, localizePath } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { buildAlternates } from "@/lib/i18n/seo";
@@ -35,25 +36,29 @@ export default async function ProductsPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <h1 className="font-display text-4xl tracking-wide text-deep-sea uppercase">
-        {dict.products.title}
-      </h1>
+      <Reveal immediate>
+        <h1 className="font-display text-4xl tracking-wide text-deep-sea uppercase">
+          {dict.products.title}
+        </h1>
+      </Reveal>
 
       {collections.length > 0 && (
-        <nav aria-label="Collections" className="mt-6 flex flex-wrap gap-2">
-          <span className="rounded-full bg-deep-sea px-4 py-2 text-sm font-medium text-sand">
-            {dict.products.filterAll}
-          </span>
-          {collections.map((collection) => (
-            <Link
-              key={collection.id}
-              href={localizePath(locale, `/collections/${collection.handle}`)}
-              className="rounded-full border border-deep-sea/30 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-deep-sea"
-            >
-              {collection.title}
-            </Link>
-          ))}
-        </nav>
+        <Reveal immediate delay={0.08}>
+          <nav aria-label="Collections" className="mt-6 flex flex-wrap gap-2">
+            <span className="rounded-full bg-deep-sea px-4 py-2 text-sm font-medium text-sand">
+              {dict.products.filterAll}
+            </span>
+            {collections.map((collection) => (
+              <Link
+                key={collection.id}
+                href={localizePath(locale, `/collections/${collection.handle}`)}
+                className="rounded-full border border-deep-sea/30 bg-white px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-deep-sea"
+              >
+                {collection.title}
+              </Link>
+            ))}
+          </nav>
+        </Reveal>
       )}
 
       <div className="mt-10">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ProductGrid } from "@/components/product-card";
+import { Reveal } from "@/components/reveal";
 import { isLocale, localizePath } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { buildAlternates } from "@/lib/i18n/seo";
@@ -53,14 +54,16 @@ export default async function CollectionPage({ params }: Props) {
       >
         ← {dict.common.backToProducts}
       </Link>
-      <h1 className="mt-4 font-display text-4xl tracking-wide text-deep-sea uppercase">
-        {collection.title}
-      </h1>
-      {collection.description && (
-        <p className="mt-3 max-w-2xl text-deep-sea/80">
-          {collection.description}
-        </p>
-      )}
+      <Reveal immediate>
+        <h1 className="mt-4 font-display text-4xl tracking-wide text-deep-sea uppercase">
+          {collection.title}
+        </h1>
+        {collection.description && (
+          <p className="mt-3 max-w-2xl text-deep-sea/80">
+            {collection.description}
+          </p>
+        )}
+      </Reveal>
 
       <div className="mt-10">
         {products.length > 0 ? (

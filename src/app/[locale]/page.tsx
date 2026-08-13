@@ -6,6 +6,7 @@ import { HomeContact } from "@/components/home-contact";
 import { MatchdayBanner } from "@/components/matchday-banner";
 import { OnThePitch } from "@/components/on-the-pitch";
 import { ProductGrid } from "@/components/product-card";
+import { Reveal, Stagger, StaggerItem } from "@/components/reveal";
 import { StatCounters } from "@/components/stat-counters";
 import { isLocale, localizePath, type Locale } from "@/lib/i18n/config";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
@@ -27,24 +28,35 @@ function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         className="absolute inset-0 object-cover"
       />
       <div className="absolute inset-0 bg-deep-sea/75" />
-      <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-        <p className="mb-4 font-semibold tracking-widest text-sky-blue uppercase">
-          {dict.home.heroEyebrow}
-        </p>
-        <h1 className="max-w-3xl font-display text-5xl leading-tight tracking-wide uppercase sm:text-7xl">
-          {dict.home.heroTitle}{" "}
-          <span className="text-sun-yellow">{dict.home.heroTitleAccent}</span>
-        </h1>
-        <p className="mt-6 max-w-xl text-lg text-sand/85">
-          {dict.home.heroSubtitle}
-        </p>
-        <Link
-          href={localizePath(locale, "/products")}
-          className="mt-10 inline-block rounded-full bg-sun-yellow px-8 py-4 font-display text-lg tracking-wide text-ink uppercase transition-colors hover:bg-sun-yellow/85"
-        >
-          {dict.common.shopNow}
-        </Link>
-      </div>
+      <Stagger
+        immediate
+        className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28"
+      >
+        <StaggerItem>
+          <p className="mb-4 font-semibold tracking-widest text-sky-blue uppercase">
+            {dict.home.heroEyebrow}
+          </p>
+        </StaggerItem>
+        <StaggerItem>
+          <h1 className="max-w-3xl font-display text-5xl leading-tight tracking-wide uppercase sm:text-7xl">
+            {dict.home.heroTitle}{" "}
+            <span className="text-sun-yellow">{dict.home.heroTitleAccent}</span>
+          </h1>
+        </StaggerItem>
+        <StaggerItem>
+          <p className="mt-6 max-w-xl text-lg text-sand/85">
+            {dict.home.heroSubtitle}
+          </p>
+        </StaggerItem>
+        <StaggerItem>
+          <Link
+            href={localizePath(locale, "/products")}
+            className="mt-10 inline-block rounded-full bg-sun-yellow px-8 py-4 font-display text-lg tracking-wide text-ink uppercase transition-colors hover:bg-sun-yellow/85"
+          >
+            {dict.common.shopNow}
+          </Link>
+        </StaggerItem>
+      </Stagger>
       <div
         aria-hidden="true"
         className="relative h-2 bg-linear-to-r from-sky-blue via-sea-blue to-sun-yellow"
@@ -64,20 +76,23 @@ async function FeaturedProducts({
 
   if (products.length === 0) {
     return (
-      <section className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
+      <Reveal
+        as="section"
+        className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6"
+      >
         <h2 className="font-display text-3xl tracking-wide text-deep-sea uppercase">
           {dict.home.featuredEmptyTitle}
         </h2>
         <p className="mx-auto mt-4 max-w-md text-deep-sea/70">
           {dict.home.featuredEmptyBody}
         </p>
-      </section>
+      </Reveal>
     );
   }
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div className="mb-8 flex items-end justify-between">
+      <Reveal className="mb-8 flex items-end justify-between">
         <h2 className="font-display text-3xl tracking-wide text-deep-sea uppercase">
           {dict.home.featuredTitle}
         </h2>
@@ -87,7 +102,7 @@ async function FeaturedProducts({
         >
           {dict.common.viewAll} →
         </Link>
-      </div>
+      </Reveal>
       <ProductGrid products={products} locale={locale} dict={dict} />
     </section>
   );
@@ -107,12 +122,17 @@ async function Collections({
   return (
     <section className="bg-sky-blue/15">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <h2 className="mb-8 font-display text-3xl tracking-wide text-deep-sea uppercase">
-          {dict.home.collectionsTitle}
-        </h2>
-        <ul className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        <Reveal>
+          <h2 className="mb-8 font-display text-3xl tracking-wide text-deep-sea uppercase">
+            {dict.home.collectionsTitle}
+          </h2>
+        </Reveal>
+        <Stagger
+          as="ul"
+          className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+        >
           {collections.map((collection) => (
-            <li key={collection.id}>
+            <StaggerItem as="li" key={collection.id}>
               <Link
                 href={localizePath(locale, `/collections/${collection.handle}`)}
                 className="group relative block aspect-square overflow-hidden rounded-2xl bg-deep-sea shadow-sm transition-shadow hover:shadow-lg"
@@ -131,9 +151,9 @@ async function Collections({
                   {collection.title}
                 </span>
               </Link>
-            </li>
+            </StaggerItem>
           ))}
-        </ul>
+        </Stagger>
       </div>
     </section>
   );
@@ -141,14 +161,17 @@ async function Collections({
 
 function ClubStory({ dict }: { dict: Dictionary }) {
   return (
-    <section className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
+    <Reveal
+      as="section"
+      className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6"
+    >
       <h2 className="font-display text-3xl tracking-wide text-deep-sea uppercase">
         {dict.home.clubStoryTitle}
       </h2>
       <p className="mt-6 font-serif text-xl leading-relaxed text-ink/85">
         {dict.home.clubStoryBody}
       </p>
-    </section>
+    </Reveal>
   );
 }
 
