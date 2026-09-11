@@ -183,13 +183,22 @@
       "messagePlaceholder": "How can we help?",
       "submit": "Send message",
       "submitting": "Sending…",
-      "successTitle": "Message sent",
-      "successMessage": "Thanks for reaching out! We'll get back to you within a couple of days.",
       "errorName": "Please tell us your name.",
       "errorEmail": "Enter a valid email address.",
       "errorMessage": "Your message is a little short — add a few details.",
-      "errorGeneric": "Please fix the highlighted fields and try again."
+      "errorGeneric": "Please fix the highlighted fields and try again.",
+      "errorDelivery": "We couldn't send your message right now. Please try again, or email us directly at {email}."
     }
+  },
+  "thankYou": {
+    "metaTitle": "Thanks for your message",
+    "eyebrow": "Message sent",
+    "title": "While you wait for a reply,",
+    "titleAccent": "browse our shop",
+    "body": "Thanks for writing to us! We'll get back to you within a few days — until then, see what's new in the club wardrobe.",
+    "ctaHome": "Back to home",
+    "ctaShop": "Shop all products",
+    "shopHeading": "Shop while you wait"
   },
   "notFound": {
     "title": "Off the pitch",

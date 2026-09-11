@@ -1,7 +1,10 @@
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-/** Store contact address — language-independent, used in mailto links. */
-export const CONTACT_EMAIL = "store@nkizola.si";
+/**
+ * Store contact address — language-independent. Used in mailto links and as
+ * the destination for contact form submissions.
+ */
+export const CONTACT_EMAIL = "info@forzaizolashop.com";
 
 export type ContactDetail = {
   label: string;

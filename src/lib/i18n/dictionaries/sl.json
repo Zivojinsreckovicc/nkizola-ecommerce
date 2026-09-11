@@ -183,13 +183,22 @@
       "messagePlaceholder": "Kako lahko pomagamo?",
       "submit": "Pošlji sporočilo",
       "submitting": "Pošiljanje…",
-      "successTitle": "Sporočilo poslano",
-      "successMessage": "Hvala, ker si nam pisal! Odgovorili ti bomo v nekaj dneh.",
       "errorName": "Prosimo, povej nam svoje ime.",
       "errorEmail": "Vnesi veljaven e-poštni naslov.",
       "errorMessage": "Tvoje sporočilo je malce prekratko — dodaj nekaj podrobnosti.",
-      "errorGeneric": "Prosimo, popravi označena polja in poskusi znova."
+      "errorGeneric": "Prosimo, popravi označena polja in poskusi znova.",
+      "errorDelivery": "Sporočila trenutno ni bilo mogoče poslati. Poskusi znova ali nam piši neposredno na {email}."
     }
+  },
+  "thankYou": {
+    "metaTitle": "Hvala za sporočilo",
+    "eyebrow": "Sporočilo poslano",
+    "title": "Medtem ko čakaš na odgovor,",
+    "titleAccent": "razišči trgovino",
+    "body": "Hvala, ker si nam pisal! Odgovorili ti bomo v nekaj dneh — do takrat si oglej, kaj je novega v klubski garderobi.",
+    "ctaHome": "Na domačo stran",
+    "ctaShop": "Nakupuj vse izdelke",
+    "shopHeading": "Medtem nakupuj"
   },
   "notFound": {
     "title": "Izven igrišča",

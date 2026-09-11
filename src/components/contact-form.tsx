@@ -38,20 +38,6 @@ export function ContactForm({
   const messageId = useId();
   const errors = state.fieldErrors ?? {};
 
-  if (state.status === "success") {
-    return (
-      <div
-        role="status"
-        className="rounded-2xl border border-sea-blue/20 bg-white p-8 text-center shadow-sm"
-      >
-        <p className="font-display text-2xl tracking-wide text-deep-sea uppercase">
-          {t.successTitle}
-        </p>
-        <p className="mt-3 text-ink/75">{state.message}</p>
-      </div>
-    );
-  }
-
   return (
     <form action={formAction} noValidate className="space-y-5">
       {state.status === "error" && state.message && (

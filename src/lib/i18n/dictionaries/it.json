@@ -183,13 +183,22 @@
       "messagePlaceholder": "Come possiamo aiutarti?",
       "submit": "Invia messaggio",
       "submitting": "Invio in corso…",
-      "successTitle": "Messaggio inviato",
-      "successMessage": "Grazie per averci scritto! Ti risponderemo entro un paio di giorni.",
       "errorName": "Dicci il tuo nome, per favore.",
       "errorEmail": "Inserisci un indirizzo e-mail valido.",
       "errorMessage": "Il tuo messaggio è un po' corto — aggiungi qualche dettaglio.",
-      "errorGeneric": "Correggi i campi evidenziati e riprova."
+      "errorGeneric": "Correggi i campi evidenziati e riprova.",
+      "errorDelivery": "Non siamo riusciti a inviare il messaggio. Riprova o scrivici direttamente a {email}."
     }
+  },
+  "thankYou": {
+    "metaTitle": "Grazie per il tuo messaggio",
+    "eyebrow": "Messaggio inviato",
+    "title": "Mentre aspetti una risposta,",
+    "titleAccent": "esplora il negozio",
+    "body": "Grazie per averci scritto! Ti risponderemo entro pochi giorni — nel frattempo scopri le novità dello store del club.",
+    "ctaHome": "Torna alla home",
+    "ctaShop": "Scopri tutti i prodotti",
+    "shopHeading": "Intanto guarda qui"
   },
   "notFound": {
     "title": "Fuori dal campo",

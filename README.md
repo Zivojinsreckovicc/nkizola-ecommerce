@@ -31,6 +31,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the store.
 | `SHOPIFY_STORE_DOMAIN` | Your Shopify store domain, e.g. `nk-izola.myshopify.com` |
 | `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Storefront API access token (Shopify admin → Settings → Apps and sales channels → Develop apps → Storefront API) |
 | `NEXT_PUBLIC_SITE_URL` | Canonical site URL used for metadata and the sitemap, e.g. `https://store.nkizola.si` |
+| `RESEND_API_KEY` | [Resend](https://resend.com) API key used to deliver contact form submissions |
 
 Without Shopify credentials the site still builds and renders with empty catalog states, so previews never break.
 
@@ -40,10 +41,11 @@ Without Shopify credentials the site still builds and renders with empty catalog
 - `src/lib/cart.ts` — server-side cart reads (cart id lives in an httpOnly cookie).
 - `src/app/cart/actions.ts` — cart mutations as Server Actions (add, update quantity, remove).
 - `src/components/` — shared UI (header, footer, product grid, variant selector).
+- `src/lib/email.ts` — transactional email via the Resend REST API. Contact form submissions are delivered to `CONTACT_EMAIL` (`src/lib/contact.ts`) with the sender's address as `Reply-To`. The `From` domain must stay verified in Resend.
 - Checkout is handled entirely by Shopify via the cart's `checkoutUrl`.
 
 Catalog data is cached for 5 minutes (tagged `catalog`); cart data is always fetched fresh.
 
 ## Deployment
 
-Deploy on [Vercel](https://vercel.com) and set the three environment variables above in the project settings. `npm run build` must pass before shipping.
+Deploy on [Vercel](https://vercel.com) and set the environment variables above in the project settings. `npm run build` must pass before shipping.

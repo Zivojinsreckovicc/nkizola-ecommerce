@@ -1,12 +1,15 @@
 "use server";
 
-import { type Locale } from "@/lib/i18n/config";
+import { redirect } from "next/navigation";
+import { CONTACT_EMAIL } from "@/lib/contact";
+import { escapeHtml, sendEmail } from "@/lib/email";
+import { localizePath, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
 export type ContactField = "name" | "email" | "message";
 
 export type ContactFormState = {
-  status: "idle" | "success" | "error";
+  status: "idle" | "error";
   message: string;
   fieldErrors?: Partial<Record<ContactField, string>>;
 };
@@ -28,9 +31,9 @@ export async function submitContactForm(
   const t = dict.contact.form;
 
   // Honeypot: real supporters leave this hidden field empty; bots tend to fill
-  // it. Pretend success so we don't tip them off.
+  // it. Send them down the success path so we don't tip them off.
   if (readField(formData, "company")) {
-    return { status: "success", message: t.successMessage };
+    redirect(localizePath(locale, "/thank-you"));
   }
 
   const name = readField(formData, "name");
@@ -51,10 +54,56 @@ export async function submitContactForm(
     };
   }
 
-  // TODO: connect a delivery channel (email provider or Shopify contact API).
-  // Until then, submissions are captured in the deployment logs so nothing is
-  // lost during the MVP phase.
-  console.info("[contact] new message", { name, email, subject, message });
+  const delivered = await sendEmail({
+    to: CONTACT_EMAIL,
+    // Staff hit Reply in their inbox and it reaches the supporter directly.
+    replyTo: email,
+    subject: subject
+      ? `Contact form: ${subject}`
+      : `Contact form: new message from ${name}`,
+    html: renderNotification({ name, email, subject, message, locale }),
+  });
 
-  return { status: "success", message: t.successMessage };
+  if (!delivered) {
+    // Keep the message in the deployment logs so nothing is lost while the
+    // sender is down, and tell the supporter the truth.
+    console.error("[contact] delivery failed", { name, email, subject, message });
+    return {
+      status: "error",
+      message: t.errorDelivery.replace("{email}", CONTACT_EMAIL),
+    };
+  }
+
+  redirect(localizePath(locale, "/thank-you"));
+}
+
+/** HTML body of the notification sent to the store inbox. */
+function renderNotification(submission: {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  locale: Locale;
+}): string {
+  const rows: [string, string][] = [
+    ["Name", submission.name],
+    ["Email", submission.email],
+    ["Subject", submission.subject || "—"],
+    ["Language", submission.locale.toUpperCase()],
+  ];
+
+  return `
+    <div style="font-family:system-ui,sans-serif;color:#0A1622;line-height:1.6">
+      <h2 style="color:#0C0D29;margin:0 0 16px">New contact form message</h2>
+      <table cellpadding="0" cellspacing="0" style="margin-bottom:16px">
+        ${rows
+          .map(
+            ([label, value]) =>
+              `<tr><td style="padding-right:12px;color:#0A1622;opacity:.6">${label}</td><td>${escapeHtml(value)}</td></tr>`
+          )
+          .join("")}
+      </table>
+      <div style="white-space:pre-wrap;border-left:3px solid #5DB4E6;padding-left:12px">${escapeHtml(submission.message)}</div>
+    </div>
+  `;
 }
