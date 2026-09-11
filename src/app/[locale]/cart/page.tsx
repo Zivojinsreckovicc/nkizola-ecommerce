@@ -6,6 +6,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { getCurrentCart } from "@/lib/cart";
 import { isLocale, localizePath, type Locale } from "@/lib/i18n/config";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
+import { PRINT_NAME_KEY, PRINT_NUMBER_KEY } from "@/lib/personalization";
 import type { CartLine } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
 import { removeItem, updateItemQuantity } from "./actions";
@@ -35,6 +36,20 @@ function LineItem({
   dict: Dictionary;
 }) {
   const { merchandise } = line;
+
+  // Keys prefixed with "_" are Shopify's convention for internal properties
+  // that shouldn't be shown to the shopper.
+  const properties = line.attributes.filter(
+    (attribute) => attribute.value && !attribute.key.startsWith("_")
+  );
+
+  /** Show the print properties under their translated labels. */
+  const propertyLabel = (key: string) => {
+    if (key === PRINT_NAME_KEY) return dict.print.nameLabel;
+    if (key === PRINT_NUMBER_KEY) return dict.print.numberLabel;
+    return key;
+  };
+
   const options = merchandise.selectedOptions
     .filter((option) => option.name !== "Title" || option.value !== "Default Title")
     .map((option) => option.value)
@@ -74,6 +89,18 @@ function LineItem({
               {merchandise.product.title}
             </Link>
             {options && <p className="mt-1 text-sm text-ink/60">{options}</p>}
+            {properties.length > 0 && (
+              <dl className="mt-1 text-sm text-ink/60">
+                {properties.map((attribute) => (
+                  <div key={attribute.key} className="flex gap-1">
+                    <dt>{propertyLabel(attribute.key)}:</dt>
+                    <dd className="font-medium text-ink/80">
+                      {attribute.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            )}
           </div>
           <p className="font-semibold">
             {formatPrice(line.cost.totalAmount, locale)}

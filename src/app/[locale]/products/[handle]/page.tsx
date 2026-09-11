@@ -8,6 +8,7 @@ import { VariantSelector } from "@/components/variant-selector";
 import { isLocale, localizePath } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { buildAlternates } from "@/lib/i18n/seo";
+import type { PrintFieldError } from "@/lib/personalization";
 import { getProduct } from "@/lib/shopify";
 import type { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
@@ -82,6 +83,20 @@ export default async function ProductPage({ params, searchParams }: Props) {
         (option) => selectedOptions[option.name] === option.value
       )
     ) ?? null;
+
+  // Only the two known field names are honoured, so the query string can't
+  // inject arbitrary text into the page.
+  const rawPrintError = resolvedSearchParams.printError;
+  const printError: PrintFieldError | null =
+    rawPrintError === "name" || rawPrintError === "number"
+      ? rawPrintError
+      : null;
+
+  // Where a rejected submission returns to — the current variant selection,
+  // minus any stale error flag.
+  const returnTo = `${localizePath(locale, `/products/${handle}`)}?${new URLSearchParams(
+    selectedOptions
+  )}`;
 
   const price = selectedVariant
     ? formatPrice(selectedVariant.price, locale)
@@ -172,7 +187,14 @@ export default async function ProductPage({ params, searchParams }: Props) {
           </div>
 
           <div className="mt-8">
-            <AddToCart variant={selectedVariant} locale={locale} dict={dict} />
+            <AddToCart
+              product={product}
+              variant={selectedVariant}
+              locale={locale}
+              dict={dict}
+              returnTo={returnTo}
+              error={printError}
+            />
           </div>
 
           {product.descriptionHtml && (

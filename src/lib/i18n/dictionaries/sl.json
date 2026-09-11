@@ -124,6 +124,17 @@
     "metaTitle": "Košarica",
     "metaDescription": "Preglej svoje naročilo NK Izola pred blagajno."
   },
+  "print": {
+    "legend": "Osebni tisk",
+    "nameLabel": "Ime",
+    "namePlaceholder": "npr. KRANJC",
+    "numberLabel": "Številka",
+    "numberPlaceholder": "10",
+    "hint": "Največ {max} znakov. Natisnjeno točno tako, kot vpišete.",
+    "errorName": "Vpišite ime — največ {max} znakov, brez posebnih znakov.",
+    "errorNumber": "Vpišite številko med 0 in 99.",
+    "chooseOptions": "Izberi možnosti"
+  },
   "about": {
     "metaTitle": "O NK Izola",
     "metaDescription": "Zgodba za NK Izola — nogometnim klubom iz Izole, Slovenija. Njegov grb, dom na Stadionu Drvarski in skupnost, ki polni tribune.",

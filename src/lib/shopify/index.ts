@@ -90,8 +90,16 @@ function flattenConnection<T>(connection: Connection<T>): T[] {
 
 /* Raw API shapes that differ from the app-facing types. */
 
-type RawProduct = Omit<Product, "images" | "variants" | "options"> & {
-  options: { id: string; name: string; optionValues: { name: string }[] }[];
+type RawProduct = Omit<
+  Product,
+  "images" | "variants" | "options" | "printTriggerValueId"
+> & {
+  options: {
+    id: string;
+    name: string;
+    optionValues: { id: string; name: string }[];
+  }[];
+  printTrigger: { value: string } | null;
   images: Connection<Image>;
   variants: Connection<ProductVariant>;
 };
@@ -100,14 +108,15 @@ type RawCart = Omit<Cart, "lines"> & {
   lines: Connection<CartLine>;
 };
 
-function reshapeProduct(product: RawProduct): Product {
+function reshapeProduct({ printTrigger, ...product }: RawProduct): Product {
   return {
     ...product,
     options: product.options.map((option) => ({
       id: option.id,
       name: option.name,
-      values: option.optionValues.map((value) => value.name),
+      values: option.optionValues,
     })),
+    printTriggerValueId: printTrigger?.value ?? null,
     images: flattenConnection(product.images),
     variants: flattenConnection(product.variants),
   };
@@ -224,7 +233,11 @@ export async function getCart(
   return data.cart ? reshapeCart(data.cart) : null;
 }
 
-type CartLineInput = { merchandiseId: string; quantity: number };
+export type CartLineInput = {
+  merchandiseId: string;
+  quantity: number;
+  attributes?: { key: string; value: string }[];
+};
 
 export async function createCart(
   locale: Locale,

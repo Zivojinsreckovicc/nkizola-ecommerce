@@ -10,10 +10,16 @@ export type Image = {
   height: number;
 };
 
+export type ProductOptionValue = {
+  /** Stable across translations — used to key personalization off a value. */
+  id: string;
+  name: string;
+};
+
 export type ProductOption = {
   id: string;
   name: string;
-  values: string[];
+  values: ProductOptionValue[];
 };
 
 export type ProductVariant = {
@@ -42,6 +48,11 @@ export type Product = {
   featuredImage: Image | null;
   images: Image[];
   variants: ProductVariant[];
+  /**
+   * `custom.print_trigger` metafield: the `ProductOptionValue` id that turns on
+   * custom-print fields. Null on every product that doesn't offer printing.
+   */
+  printTriggerValueId: string | null;
   seo: {
     title: string | null;
     description: string | null;
@@ -58,9 +69,16 @@ export type Collection = {
   updatedAt: string;
 };
 
+export type CartAttribute = {
+  key: string;
+  value: string | null;
+};
+
 export type CartLine = {
   id: string;
   quantity: number;
+  /** Line item properties — e.g. the custom print name and number. */
+  attributes: CartAttribute[];
   cost: {
     totalAmount: Money;
   };

@@ -124,6 +124,17 @@
     "metaTitle": "Carrello",
     "metaDescription": "Controlla il tuo ordine NK Izola prima della cassa."
   },
+  "print": {
+    "legend": "Stampa personalizzata",
+    "nameLabel": "Nome",
+    "namePlaceholder": "es. KRANJC",
+    "numberLabel": "Numero",
+    "numberPlaceholder": "10",
+    "hint": "Massimo {max} caratteri. Stampato esattamente come inserito.",
+    "errorName": "Inserisci un nome — massimo {max} caratteri, senza caratteri speciali.",
+    "errorNumber": "Inserisci un numero tra 0 e 99.",
+    "chooseOptions": "Scegli le opzioni"
+  },
   "about": {
     "metaTitle": "Scopri l'NK Izola",
     "metaDescription": "La storia dietro l'NK Izola — il club calcistico di Izola, Slovenia. Il suo stemma, la sua casa allo Stadion Drvarski e la comunità che riempie gli spalti.",

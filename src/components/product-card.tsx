@@ -4,6 +4,7 @@ import { addItem, buyNow } from "@/app/[locale]/cart/actions";
 import { Stagger, StaggerItem } from "@/components/reveal";
 import { SubmitButton } from "@/components/submit-button";
 import { localizePath, type Locale } from "@/lib/i18n/config";
+import { offersPrint } from "@/lib/personalization";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Product } from "@/lib/shopify/types";
 import { formatPrice } from "@/lib/utils";
@@ -20,6 +21,8 @@ export function ProductCard({
   const variant =
     product.variants.find((v) => v.availableForSale) ?? product.variants[0];
   const canPurchase = product.availableForSale && Boolean(variant);
+  // Custom print needs a name and number, which only the product page collects.
+  const needsOptions = offersPrint(product);
   const href = localizePath(locale, `/products/${product.handle}`);
 
   return (
@@ -59,9 +62,16 @@ export function ProductCard({
         </p>
 
         <div className="mt-4 flex flex-col gap-2 pt-1">
-          {canPurchase ? (
+          {canPurchase && needsOptions ? (
+            <Link
+              href={href}
+              className="block rounded-full bg-sun-yellow px-4 py-2.5 text-center text-xs font-semibold tracking-widest text-ink uppercase transition-colors hover:bg-sun-yellow/85"
+            >
+              {dict.print.chooseOptions}
+            </Link>
+          ) : canPurchase ? (
             <>
-              <form action={buyNow.bind(null, locale, variant.id)}>
+              <form action={buyNow.bind(null, locale, product.handle, variant.id)}>
                 <SubmitButton
                   pendingText={dict.common.redirecting}
                   className="w-full rounded-full bg-sun-yellow px-4 py-2.5 text-xs font-semibold tracking-widest text-ink uppercase transition-colors hover:bg-sun-yellow/85"
@@ -69,7 +79,9 @@ export function ProductCard({
                   {dict.common.buyNow}
                 </SubmitButton>
               </form>
-              <form action={addItem.bind(null, locale, variant.id)}>
+              <form
+                action={addItem.bind(null, locale, product.handle, variant.id)}
+              >
                 <SubmitButton
                   pendingText={dict.common.adding}
                   className="w-full rounded-full border border-deep-sea/30 px-4 py-2.5 text-xs font-semibold tracking-widest text-deep-sea uppercase transition-colors hover:border-deep-sea hover:bg-deep-sea hover:text-sand"

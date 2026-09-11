@@ -124,6 +124,17 @@
     "metaTitle": "Cart",
     "metaDescription": "Review your NK Izola order before checkout."
   },
+  "print": {
+    "legend": "Custom print",
+    "nameLabel": "Name",
+    "namePlaceholder": "e.g. KRANJC",
+    "numberLabel": "Number",
+    "numberPlaceholder": "10",
+    "hint": "Max {max} characters. Printed exactly as entered.",
+    "errorName": "Enter a name — max {max} characters, no special characters.",
+    "errorNumber": "Enter a number between 0 and 99.",
+    "chooseOptions": "Choose options"
+  },
   "about": {
     "metaTitle": "About NK Izola",
     "metaDescription": "The story behind NK Izola — the football club of Izola, Slovenia. Its crest, its home at Stadion Drvarski, and the community that fills the stands.",

@@ -27,10 +27,10 @@ export function VariantSelector({ product, selectedOptions, locale }: Props) {
             {option.name}
           </legend>
           <div className="flex flex-wrap gap-2">
-            {option.values.map((value) => {
-              const isSelected = selectedOptions[option.name] === value;
+            {option.values.map(({ id, name }) => {
+              const isSelected = selectedOptions[option.name] === name;
               const params = new URLSearchParams(selectedOptions);
-              params.set(option.name, value);
+              params.set(option.name, name);
 
               const isAvailable = product.variants.some(
                 (variant) =>
@@ -38,14 +38,14 @@ export function VariantSelector({ product, selectedOptions, locale }: Props) {
                   variant.selectedOptions.every(
                     (selected) =>
                       selected.name === option.name
-                        ? selected.value === value
+                        ? selected.value === name
                         : selectedOptions[selected.name] === selected.value
                   )
               );
 
               return (
                 <Link
-                  key={value}
+                  key={id}
                   href={`${localizePath(locale, `/products/${product.handle}`)}?${params}`}
                   replace
                   scroll={false}
@@ -56,7 +56,7 @@ export function VariantSelector({ product, selectedOptions, locale }: Props) {
                       : "border-deep-sea/30 bg-white text-ink hover:border-deep-sea"
                   } ${isAvailable ? "" : "opacity-40"}`}
                 >
-                  {value}
+                  {name}
                 </Link>
               );
             })}

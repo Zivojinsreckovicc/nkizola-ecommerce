@@ -19,8 +19,12 @@ const productFragment = /* GraphQL */ `
       id
       name
       optionValues {
+        id
         name
       }
+    }
+    printTrigger: metafield(namespace: "custom", key: "print_trigger") {
+      value
     }
     priceRange {
       minVariantPrice {
@@ -92,6 +96,10 @@ const cartFragment = /* GraphQL */ `
         node {
           id
           quantity
+          attributes {
+            key
+            value
+          }
           cost {
             totalAmount {
               amount
