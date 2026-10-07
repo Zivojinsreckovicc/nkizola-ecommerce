@@ -208,6 +208,12 @@ export default async function CartPage({ params }: Props) {
             >
               {dict.common.checkout}
             </a>
+            <Link
+              href={localizePath(locale, "/products")}
+              className="mt-3 block rounded-full border border-deep-sea/30 bg-white px-8 py-4 text-center font-display text-lg tracking-wide text-deep-sea uppercase transition-colors hover:border-deep-sea"
+            >
+              ← {dict.cart.continueShopping}
+            </Link>
           </div>
         </>
       )}
