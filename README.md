@@ -30,6 +30,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the store.
 | --- | --- |
 | `SHOPIFY_STORE_DOMAIN` | Your Shopify store domain, e.g. `nk-izola.myshopify.com` |
 | `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Storefront API access token (Shopify admin → Settings → Apps and sales channels → Develop apps → Storefront API) |
+| `SHOPIFY_WEBHOOK_SECRET` | Webhook signing secret (Shopify admin → Settings → Notifications → Webhooks), used to verify calls to `/api/revalidate` |
 | `NEXT_PUBLIC_SITE_URL` | Canonical site URL used for metadata and the sitemap, e.g. `https://store.nkizola.si` |
 | `RESEND_API_KEY` | [Resend](https://resend.com) API key used to deliver contact form submissions |
 
@@ -45,6 +46,8 @@ Without Shopify credentials the site still builds and renders with empty catalog
 - Checkout is handled entirely by Shopify via the cart's `checkoutUrl`.
 
 Catalog data is cached for 5 minutes (tagged `catalog`); cart data is always fetched fresh.
+
+To show catalog changes immediately, Shopify webhooks call `POST /api/revalidate`, which verifies the HMAC signature and expires the `catalog` tag. In Shopify admin → Settings → Notifications → Webhooks, create a JSON webhook pointing at `https://<your-domain>/api/revalidate` for each of: Product creation, Product update, Product deletion, Collection creation, Collection update, Collection deletion.
 
 ## Deployment
 

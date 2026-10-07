@@ -131,7 +131,10 @@ function reshapeCart(cart: RawCart): Cart {
 
 /* Catalog */
 
-const CATALOG_CACHE = { tags: ["catalog"], revalidate: 300 };
+/** Cache tag on every catalog fetch; expired by the Shopify webhook route. */
+export const CATALOG_TAG = "catalog";
+
+const CATALOG_CACHE = { tags: [CATALOG_TAG], revalidate: 300 };
 
 export async function getProducts(
   locale: Locale,
