@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Price } from "@/components/price";
 import { SubmitButton } from "@/components/submit-button";
 import { getCurrentCart } from "@/lib/cart";
 import { isLocale, localizePath, type Locale } from "@/lib/i18n/config";
@@ -48,6 +49,13 @@ function LineItem({
     if (key === PRINT_NAME_KEY) return dict.print.nameLabel;
     if (key === PRINT_NUMBER_KEY) return dict.print.numberLabel;
     return key;
+  };
+
+  // Shopify gives the compare-at price per unit; scale it to the line total.
+  const compareAtPerUnit = line.cost.compareAtAmountPerQuantity;
+  const compareAtTotal = compareAtPerUnit && {
+    amount: String(parseFloat(compareAtPerUnit.amount) * line.quantity),
+    currencyCode: compareAtPerUnit.currencyCode,
   };
 
   const options = merchandise.selectedOptions
@@ -102,9 +110,13 @@ function LineItem({
               </dl>
             )}
           </div>
-          <p className="font-semibold">
-            {formatPrice(line.cost.totalAmount, locale)}
-          </p>
+          <Price
+            price={line.cost.totalAmount}
+            compareAtPrice={compareAtTotal}
+            locale={locale}
+            dict={dict}
+            className="justify-end text-right font-semibold"
+          />
         </div>
 
         <div className="flex items-center justify-between">

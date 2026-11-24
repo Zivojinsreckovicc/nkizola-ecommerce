@@ -31,6 +31,8 @@ export type ProductVariant = {
     value: string;
   }[];
   price: Money;
+  /** The pre-sale price; null when the variant isn't marked down. */
+  compareAtPrice: Money | null;
 };
 
 export type Product = {
@@ -81,6 +83,7 @@ export type CartLine = {
   attributes: CartAttribute[];
   cost: {
     totalAmount: Money;
+    compareAtAmountPerQuantity: Money | null;
   };
   merchandise: {
     id: string;

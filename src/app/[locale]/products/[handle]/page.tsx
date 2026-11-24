@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { AddToCart } from "@/components/add-to-cart";
+import { Price } from "@/components/price";
 import { Reveal } from "@/components/reveal";
 import { VariantSelector } from "@/components/variant-selector";
 import { isLocale, localizePath } from "@/lib/i18n/config";
@@ -11,7 +12,7 @@ import { buildAlternates } from "@/lib/i18n/seo";
 import type { PrintFieldError } from "@/lib/personalization";
 import { getProduct } from "@/lib/shopify";
 import type { Product } from "@/lib/shopify/types";
-import { formatPrice } from "@/lib/utils";
+import { getProductPrice } from "@/lib/utils";
 
 type Props = {
   params: Promise<{ locale: string; handle: string }>;
@@ -98,9 +99,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
     selectedOptions
   )}`;
 
-  const price = selectedVariant
-    ? formatPrice(selectedVariant.price, locale)
-    : formatPrice(product.priceRange.minVariantPrice, locale);
+  const { price, compareAtPrice } = getProductPrice(product, selectedVariant);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -176,7 +175,13 @@ export default async function ProductPage({ params, searchParams }: Props) {
           <h1 className="font-display text-4xl tracking-wide text-deep-sea uppercase">
             {product.title}
           </h1>
-          <p className="mt-3 text-2xl font-semibold text-ink">{price}</p>
+          <Price
+            price={price}
+            compareAtPrice={compareAtPrice}
+            locale={locale}
+            dict={dict}
+            className="mt-3 text-2xl font-semibold text-ink"
+          />
 
           <div className="mt-8">
             <VariantSelector

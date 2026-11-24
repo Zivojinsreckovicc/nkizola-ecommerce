@@ -27,7 +27,9 @@
     "working": "Elaborazione…",
     "loading": "Caricamento",
     "backToProducts": "Tutti i prodotti",
-    "allProducts": "Tutti i prodotti"
+    "allProducts": "Tutti i prodotti",
+    "salePrice": "Prezzo scontato",
+    "regularPrice": "Prezzo di listino"
   },
   "footer": {
     "tagline": "Il negozio ufficiale dell'NK Izola. Indossato dalla squadra, creato per i tifosi della costa slovena.",

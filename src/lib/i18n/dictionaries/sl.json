@@ -27,7 +27,9 @@
     "working": "Obdelava…",
     "loading": "Nalaganje",
     "backToProducts": "Vsi izdelki",
-    "allProducts": "Vsi izdelki"
+    "allProducts": "Vsi izdelki",
+    "salePrice": "Akcijska cena",
+    "regularPrice": "Redna cena"
   },
   "footer": {
     "tagline": "Uradna trgovina NK Izola. Nosi jo ekipa, ustvarjena pa je za navijače s slovenske obale.",

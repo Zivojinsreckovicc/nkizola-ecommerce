@@ -60,6 +60,10 @@ const productFragment = /* GraphQL */ `
             amount
             currencyCode
           }
+          compareAtPrice {
+            amount
+            currencyCode
+          }
         }
       }
     }
@@ -102,6 +106,10 @@ const cartFragment = /* GraphQL */ `
           }
           cost {
             totalAmount {
+              amount
+              currencyCode
+            }
+            compareAtAmountPerQuantity {
               amount
               currencyCode
             }

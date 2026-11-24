@@ -27,7 +27,9 @@
     "working": "Working…",
     "loading": "Loading",
     "backToProducts": "All products",
-    "allProducts": "All products"
+    "allProducts": "All products",
+    "salePrice": "Sale price",
+    "regularPrice": "Regular price"
   },
   "footer": {
     "tagline": "The official store of NK Izola. Worn by the squad, made for the supporters on the Slovenian coast.",

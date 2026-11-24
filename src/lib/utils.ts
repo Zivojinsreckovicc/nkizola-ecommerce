@@ -1,4 +1,4 @@
-import type { Money } from "@/lib/shopify/types";
+import type { Money, Product, ProductVariant } from "@/lib/shopify/types";
 import type { Locale } from "@/lib/i18n/config";
 
 export function formatPrice(
@@ -10,6 +10,36 @@ export function formatPrice(
     currency: currencyCode,
     currencyDisplay: "narrowSymbol",
   }).format(parseFloat(amount));
+}
+
+/** True when Shopify lists a compare-at price above the selling price. */
+export function isDiscounted(
+  price: Money,
+  compareAtPrice: Money | null
+): compareAtPrice is Money {
+  return (
+    compareAtPrice !== null &&
+    parseFloat(compareAtPrice.amount) > parseFloat(price.amount)
+  );
+}
+
+/**
+ * The price a product is shown at — the given variant's, or else the lowest
+ * variant price — together with the compare-at price that belongs to it.
+ */
+export function getProductPrice(
+  product: Product,
+  variant?: ProductVariant | null
+): { price: Money; compareAtPrice: Money | null } {
+  if (variant) {
+    return { price: variant.price, compareAtPrice: variant.compareAtPrice };
+  }
+
+  const price = product.priceRange.minVariantPrice;
+  const cheapest = product.variants.find(
+    (v) => parseFloat(v.price.amount) === parseFloat(price.amount)
+  );
+  return { price, compareAtPrice: cheapest?.compareAtPrice ?? null };
 }
 
 export function getSiteUrl(): URL {

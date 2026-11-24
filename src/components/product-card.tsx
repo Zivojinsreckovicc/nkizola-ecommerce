@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { addItem, buyNow } from "@/app/[locale]/cart/actions";
+import { Price } from "@/components/price";
 import { Stagger, StaggerItem } from "@/components/reveal";
 import { SubmitButton } from "@/components/submit-button";
 import { localizePath, type Locale } from "@/lib/i18n/config";
 import { offersPrint } from "@/lib/personalization";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Product } from "@/lib/shopify/types";
-import { formatPrice } from "@/lib/utils";
+import { getProductPrice } from "@/lib/utils";
 
 export function ProductCard({
   product,
@@ -24,6 +25,7 @@ export function ProductCard({
   // Custom print needs a name and number, which only the product page collects.
   const needsOptions = offersPrint(product);
   const href = localizePath(locale, `/products/${product.handle}`);
+  const { price, compareAtPrice } = getProductPrice(product);
 
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-deep-sea/10 bg-white shadow-sm transition-shadow hover:shadow-lg">
@@ -57,9 +59,13 @@ export function ProductCard({
             {product.title}
           </h3>
         </Link>
-        <p className="mt-1.5 text-lg font-semibold text-ink">
-          {formatPrice(product.priceRange.minVariantPrice, locale)}
-        </p>
+        <Price
+          price={price}
+          compareAtPrice={compareAtPrice}
+          locale={locale}
+          dict={dict}
+          className="mt-1.5 text-lg font-semibold text-ink"
+        />
 
         <div className="mt-4 flex flex-col gap-2 pt-1">
           {canPurchase && needsOptions ? (
