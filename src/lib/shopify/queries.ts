@@ -109,6 +109,10 @@ const cartFragment = /* GraphQL */ `
               amount
               currencyCode
             }
+            amountPerQuantity {
+              amount
+              currencyCode
+            }
             compareAtAmountPerQuantity {
               amount
               currencyCode
@@ -168,6 +172,36 @@ export const getProductQuery = /* GraphQL */ `
     }
   }
   ${productFragment}
+`;
+
+/**
+ * Each variant's own price and compare-at price, deliberately without
+ * `@inContext` — see `getBaseCompareAtPrices` in `./index.ts`.
+ */
+export const getBaseCompareAtPricesQuery = /* GraphQL */ `
+  query getBaseCompareAtPrices($first: Int!) {
+    products(first: $first) {
+      edges {
+        node {
+          variants(first: 100) {
+            edges {
+              node {
+                id
+                price {
+                  amount
+                  currencyCode
+                }
+                compareAtPrice {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const getCollectionsQuery = /* GraphQL */ `

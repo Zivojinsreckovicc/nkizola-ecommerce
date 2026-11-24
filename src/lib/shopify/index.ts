@@ -1,6 +1,7 @@
 import {
   addToCartMutation,
   createCartMutation,
+  getBaseCompareAtPricesQuery,
   getCartQuery,
   getCollectionProductsQuery,
   getCollectionQuery,
@@ -16,6 +17,7 @@ import type {
   Collection,
   Connection,
   Image,
+  Money,
   Product,
   ProductVariant,
 } from "./types";
@@ -108,7 +110,78 @@ type RawCart = Omit<Cart, "lines"> & {
   lines: Connection<CartLine>;
 };
 
-function reshapeProduct({ printTrigger, ...product }: RawProduct): Product {
+/* Compare-at fallback */
+
+/** Variant id → the variant's own price and compare-at price. */
+type BaseCompareAtPrices = Map<string, { price: Money; compareAtPrice: Money }>;
+
+/**
+ * Under `@inContext` the Storefront API prices variants through the market's
+ * catalog, and the Slovenia catalog returns no compare-at prices even though
+ * the products carry them — so sales lost their struck-through old price.
+ * This lookup reads the products' own compare-at prices without a context.
+ *
+ * Cached and tagged like the rest of the catalog. A failure only costs the
+ * strikethrough, so it never takes a page down.
+ */
+async function getBaseCompareAtPrices(): Promise<BaseCompareAtPrices> {
+  const prices: BaseCompareAtPrices = new Map();
+
+  try {
+    const data = await shopifyFetch<{
+      products: Connection<{
+        variants: Connection<{
+          id: string;
+          price: Money;
+          compareAtPrice: Money | null;
+        }>;
+      }>;
+    }>({
+      query: getBaseCompareAtPricesQuery,
+      variables: { first: 100 },
+      ...CATALOG_CACHE,
+    });
+
+    for (const product of flattenConnection(data.products)) {
+      for (const variant of flattenConnection(product.variants)) {
+        if (variant.compareAtPrice) {
+          prices.set(variant.id, {
+            price: variant.price,
+            compareAtPrice: variant.compareAtPrice,
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Could not load compare-at prices", error);
+  }
+
+  return prices;
+}
+
+/**
+ * The variant's own compare-at price, used only when the market charges the
+ * variant's own price — a market with different pricing is never paired with
+ * an unrelated old price.
+ */
+function fallbackCompareAtPrice(
+  variantId: string,
+  marketPrice: Money,
+  basePrices: BaseCompareAtPrices
+): Money | null {
+  const base = basePrices.get(variantId);
+  const samePrice =
+    base !== undefined &&
+    base.price.currencyCode === marketPrice.currencyCode &&
+    parseFloat(base.price.amount) === parseFloat(marketPrice.amount);
+
+  return samePrice ? base.compareAtPrice : null;
+}
+
+function reshapeProduct(
+  { printTrigger, ...product }: RawProduct,
+  basePrices: BaseCompareAtPrices
+): Product {
   return {
     ...product,
     options: product.options.map((option) => ({
@@ -118,14 +191,38 @@ function reshapeProduct({ printTrigger, ...product }: RawProduct): Product {
     })),
     printTriggerValueId: printTrigger?.value ?? null,
     images: flattenConnection(product.images),
-    variants: flattenConnection(product.variants),
+    variants: flattenConnection(product.variants).map((variant) => ({
+      ...variant,
+      compareAtPrice:
+        variant.compareAtPrice ??
+        fallbackCompareAtPrice(variant.id, variant.price, basePrices),
+    })),
   };
 }
 
-function reshapeCart(cart: RawCart): Cart {
+/**
+ * Only `getCart` passes `basePrices`: it is the one cart that gets rendered.
+ * The carts mutations return are used for their id and nothing else.
+ */
+function reshapeCart(
+  cart: RawCart,
+  basePrices: BaseCompareAtPrices = new Map()
+): Cart {
   return {
     ...cart,
-    lines: flattenConnection(cart.lines),
+    lines: flattenConnection(cart.lines).map((line) => ({
+      ...line,
+      cost: {
+        ...line.cost,
+        compareAtAmountPerQuantity:
+          line.cost.compareAtAmountPerQuantity ??
+          fallbackCompareAtPrice(
+            line.merchandise.id,
+            line.cost.amountPerQuantity,
+            basePrices
+          ),
+      },
+    })),
   };
 }
 
@@ -142,18 +239,23 @@ export async function getProducts(
 ): Promise<Product[]> {
   if (!isShopifyConfigured()) return [];
 
-  const data = await shopifyFetch<{ products: Connection<RawProduct> }>({
-    query: getProductsQuery,
-    variables: {
-      first,
-      sortKey: "CREATED_AT",
-      reverse: true,
-      ...inContext(locale),
-    },
-    ...CATALOG_CACHE,
-  });
+  const [data, basePrices] = await Promise.all([
+    shopifyFetch<{ products: Connection<RawProduct> }>({
+      query: getProductsQuery,
+      variables: {
+        first,
+        sortKey: "CREATED_AT",
+        reverse: true,
+        ...inContext(locale),
+      },
+      ...CATALOG_CACHE,
+    }),
+    getBaseCompareAtPrices(),
+  ]);
 
-  return flattenConnection(data.products).map(reshapeProduct);
+  return flattenConnection(data.products).map((product) =>
+    reshapeProduct(product, basePrices)
+  );
 }
 
 export async function getProduct(
@@ -162,13 +264,16 @@ export async function getProduct(
 ): Promise<Product | null> {
   if (!isShopifyConfigured()) return null;
 
-  const data = await shopifyFetch<{ product: RawProduct | null }>({
-    query: getProductQuery,
-    variables: { handle, ...inContext(locale) },
-    ...CATALOG_CACHE,
-  });
+  const [data, basePrices] = await Promise.all([
+    shopifyFetch<{ product: RawProduct | null }>({
+      query: getProductQuery,
+      variables: { handle, ...inContext(locale) },
+      ...CATALOG_CACHE,
+    }),
+    getBaseCompareAtPrices(),
+  ]);
 
-  return data.product ? reshapeProduct(data.product) : null;
+  return data.product ? reshapeProduct(data.product, basePrices) : null;
 }
 
 export async function getCollections(
@@ -208,17 +313,22 @@ export async function getCollectionProducts(
 ): Promise<Product[]> {
   if (!isShopifyConfigured()) return [];
 
-  const data = await shopifyFetch<{
-    collection: { products: Connection<RawProduct> } | null;
-  }>({
-    query: getCollectionProductsQuery,
-    variables: { handle, first, ...inContext(locale) },
-    ...CATALOG_CACHE,
-  });
+  const [data, basePrices] = await Promise.all([
+    shopifyFetch<{
+      collection: { products: Connection<RawProduct> } | null;
+    }>({
+      query: getCollectionProductsQuery,
+      variables: { handle, first, ...inContext(locale) },
+      ...CATALOG_CACHE,
+    }),
+    getBaseCompareAtPrices(),
+  ]);
 
   if (!data.collection) return [];
 
-  return flattenConnection(data.collection.products).map(reshapeProduct);
+  return flattenConnection(data.collection.products).map((product) =>
+    reshapeProduct(product, basePrices)
+  );
 }
 
 /* Cart — always fetched fresh, never cached. */
@@ -227,13 +337,16 @@ export async function getCart(
   locale: Locale,
   cartId: string
 ): Promise<Cart | null> {
-  const data = await shopifyFetch<{ cart: RawCart | null }>({
-    query: getCartQuery,
-    variables: { cartId, ...inContext(locale) },
-    cache: "no-store",
-  });
+  const [data, basePrices] = await Promise.all([
+    shopifyFetch<{ cart: RawCart | null }>({
+      query: getCartQuery,
+      variables: { cartId, ...inContext(locale) },
+      cache: "no-store",
+    }),
+    getBaseCompareAtPrices(),
+  ]);
 
-  return data.cart ? reshapeCart(data.cart) : null;
+  return data.cart ? reshapeCart(data.cart, basePrices) : null;
 }
 
 export type CartLineInput = {

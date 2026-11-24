@@ -83,6 +83,7 @@ export type CartLine = {
   attributes: CartAttribute[];
   cost: {
     totalAmount: Money;
+    amountPerQuantity: Money;
     compareAtAmountPerQuantity: Money | null;
   };
   merchandise: {
